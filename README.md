@@ -1,5 +1,5 @@
 # Исключения
-##В файле terraform/.gitignore 
+## В файле terraform/.gitignore 
 
 1. Все папки и файлы скрытой директории .terraform
 2. Файлы с расширением .tfstate  и содержащие в названии .tfstate.
@@ -10,3 +10,4 @@
 7. Файл .terraformrc и файл terraform.rc
 
 ### Создание новой ветки fix
+### IDE commit to main
