@@ -9,3 +9,4 @@
 6. Файлы с расширением _override.tf и _override.tf.json
 7. Файл .terraformrc и файл terraform.rc
 
+### PyCharm to main from IDE
