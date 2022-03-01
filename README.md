@@ -10,4 +10,3 @@
 7. Файл .terraformrc и файл terraform.rc
 
 ### Создание новой ветки fix
-### IDE commit to fix
