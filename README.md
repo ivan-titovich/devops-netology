@@ -11,3 +11,4 @@
 
 ### Создание новой ветки fix
 ### IDE commit to fix
+Test string
