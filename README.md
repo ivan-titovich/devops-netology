@@ -11,3 +11,5 @@
 
 ### Создание новой ветки fix
 ### IDE commit to fix
+
+vim editor testing
