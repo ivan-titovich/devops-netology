@@ -9,4 +9,5 @@
 6. Файлы с расширением _override.tf и _override.tf.json
 7. Файл .terraformrc и файл terraform.rc
 
-### PyCharm to main from IDE
+### Ветвления в Git
+https://github.com/ivan-titovich/devops-netology/network
