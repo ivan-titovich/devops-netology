@@ -15,7 +15,7 @@ geo_logs = [
 ]
 
 # это список со словарем внутри (visit - ключ), внутри значения ключа - еще список
-
+geo_logs_sorted_list = []
 geo_logs_sorted ={}
 
 
@@ -24,4 +24,9 @@ for visits in geo_logs:
         if v[1] == 'Россия':
             geo_logs_sorted.setdefault(k,v)
 
-print(geo_logs_sorted)
+        geo_logs_sorted_list.append(geo_logs_sorted)
+
+print(geo_logs)
+print()
+print()
+print(geo_logs_sorted_list)
