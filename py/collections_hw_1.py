@@ -17,16 +17,14 @@ geo_logs = [
 # это список со словарем внутри (visit - ключ), внутри значения ключа - еще список
 geo_logs_sorted_list = []
 geo_logs_sorted ={}
-
-
-for visits in geo_logs:
-    for k, v in visits.items():
-        if v[1] == 'Россия':
-            geo_logs_sorted.setdefault(k,v)
-
-        geo_logs_sorted_list.append(geo_logs_sorted)
-
 print(geo_logs)
 print()
+
+for id, visits in enumerate(geo_logs): #Проходим по элементам списка (словарям)
+    for key, val in visits.items(): #Перебираем значения по словаря (0 элемент - город, 1 - страна)
+        if val[1] == 'Россия':
+            geo_logs_sorted_list.append(geo_logs[id])
+
 print()
 print(geo_logs_sorted_list)
+print()
