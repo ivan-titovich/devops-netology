@@ -6,4 +6,21 @@ queries = ['смотреть сериалы онлайн',
            'афиша кино',
            'курс доллара',
            'спецоперация в Украине',
-           'как построить курятник своими руками',]
+           'как построить курятник своими руками',
+           'Ехали медведи на велосипеде а за ними кот задом на перед',
+           'Пора идти пить чай']
+
+percents = []
+summ = 0
+query_percent = 0
+for i in queries:
+    count = len(i.split())
+    percents.append(count)
+    print(count)
+    summ += count
+
+print(summ)
+print(percents)
+for q in percents:
+    query_percent = (q / summ) * 100
+    print(f"Процентное отношение запроса {} к остальным запросам: {query_percent} %")
