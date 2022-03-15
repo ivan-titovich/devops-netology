@@ -11,16 +11,43 @@ queries = ['смотреть сериалы онлайн',
            'Пора идти пить чай']
 
 percents = []
+
 summ = 0
 query_percent = 0
+query_percent_summ = 0
 for i in queries:
     count = len(i.split())
     percents.append(count)
-    print(count)
     summ += count
 
-print(summ)
 print(percents)
-for q in percents:
-    query_percent = (q / summ) * 100
-    print(f"Процентное отношение запроса {} к остальным запросам: {query_percent} %")
+
+number_of_queryes = len(percents)
+for x in range(len(percents)):
+    if x == percents[x]:
+        print( "Запросов с ", x, 'словом', percents.count(x) )
+
+# print(percents)
+# print(len(percents))
+# number_of_queryes = len(percents)
+# print(percents.count(2))
+
+# for q in percents:
+#     query_percent = (percents.count(q) / number_of_queryes) * 100
+#     query_percent_summ += query_percent
+#     print(q, "Запрос", query_percent, ' %')
+# print(query_percent_summ)
+
+# for i in percents:
+#     print(percents.count(i))
+
+    # count = len(i.split())
+    # percents.append(count)
+    # print(count)
+    # summ += count
+
+# print(summ)
+# print(percents)
+# for q in percents:
+#     query_percent = (q / summ) * 100
+#     print(f"Процентное отношение запроса {} к остальным запросам: {query_percent} %")
