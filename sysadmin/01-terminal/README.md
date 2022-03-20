@@ -52,12 +52,12 @@ simply run `vagrant up`.
 ```ARG_MAX limit```
 
 11. Описание со строки 1340. Конструкция проверяет существует ли папка ( флаг -d ) `````/tmp````` по указанному пути.
-12. Копируем в созданную папку файл bash
-```
-cp /bin/bash /tmp/new_path_directory/bash
-# Изменяем переменную PATH
-sudo vim /etc/environment
-# на. Новую переменную нужно определить сначала, чтобы при выводе type -a bash она была сверху
-PATH="/tmp/new_path_directory:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-```
-14. 
+12. 
+a) Создаем папку new_path_directory, копируем в нее файл bash ```cp /bin/bash /tmp/new_path_directory/bash```
+
+b)Изменяем PATH в файле ```sudo vim /etc/environment```. Новую переменную нужно определить сначала, чтобы при выводе ```type -a bash``` она была сверху списка
+``` PATH="/tmp/new_path_directory:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"```
+
+14. Команда at позволяет единожды выполнить команду (скрипт) в заданное время (дату, через какое-то количетсво времени и пр. - параметры задания условия очень гибкие.)
+Команда batch - частный случай команды at - добавляет команду на выполнения но не в указанное время, а когда среднее значение нагрузки падает ниже 1,5 или другого значения, указанного при вызоде демона at (atd). 
+
