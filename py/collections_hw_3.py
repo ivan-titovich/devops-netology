@@ -8,46 +8,46 @@ queries = ['смотреть сериалы онлайн',
            'спецоперация в Украине',
            'как построить курятник своими руками',
            'Ехали медведи на велосипеде а за ними кот задом на перед',
-           'Пора идти пить чай']
+           'Пора идти пить чай',
+           'Заблочат ли youtube?',
+           'Когда закончится война на Украине',
+           'смотреть сериалы онлайн',
+           'новости спорта',
+           'афиша кино',
+           'курс доллара',
+           'спецоперация в Украине',
+           'как построить курятник своими руками',
+           'Ехали медведи на велосипеде а за ними кот задом на перед',
+           'Пора идти пить чай',
+           'Заблочат ли youtube?',
+           'Когда закончится война на Украине',
+           'смотреть сериалы онлайн',
+           'новости спорта',
+           'афиша кино',
+           'курс доллара',
+           'спецоперация в Украине',
+           'как построить курятник своими руками',
+           'Ехали медведи на велосипеде а за ними кот задом на перед',
+           'Пора идти пить чай',
+           'Заблочат ли youtube?',
+           'Когда закончится война на Украине'
+           ]
 
+queries_counter = {}
 percents = []
+query_lenght = 0
+count = 0
+queries_count = len(queries)
 
-summ = 0
-query_percent = 0
-query_percent_summ = 0
-for i in queries:
-    count = len(i.split())
-    percents.append(count)
-    summ += count
+for query in queries:
+    query_lenght = len(query.split())
+    percents.append(query_lenght)
+    queries_counter[query_lenght] = percents.count(query_lenght)
 
-print(percents)
+print()
 
-number_of_queryes = len(percents)
-for x in range(len(percents)):
-    if x == percents[x]:
-        print( "Запросов с ", x, 'словом', percents.count(x) )
+for key,value in queries_counter.items():
+    print(f"Количество запросов с {key} словами:  {value}")
+    print("Общий вес запроса из всех: {} %".format(queries_counter[key]/queries_count * 100))
 
-# print(percents)
-# print(len(percents))
-# number_of_queryes = len(percents)
-# print(percents.count(2))
 
-# for q in percents:
-#     query_percent = (percents.count(q) / number_of_queryes) * 100
-#     query_percent_summ += query_percent
-#     print(q, "Запрос", query_percent, ' %')
-# print(query_percent_summ)
-
-# for i in percents:
-#     print(percents.count(i))
-
-    # count = len(i.split())
-    # percents.append(count)
-    # print(count)
-    # summ += count
-
-# print(summ)
-# print(percents)
-# for q in percents:
-#     query_percent = (q / summ) * 100
-#     print(f"Процентное отношение запроса {} к остальным запросам: {query_percent} %")
