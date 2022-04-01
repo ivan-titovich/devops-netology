@@ -125,14 +125,19 @@ node_network_transmit_bytes_total{device="eth0"} 1.656581e+06
 node_network_transmit_bytes_total{device="lo"} 258059
 ```
 3. Ознакомился. 
+
 4. Можно, например посмотрев информацию о DMI (DMI table holds the system hardware details like BIOS, Serial Number, RAM(DIMMs) and CPU details etc):
 ```DMI: innotek GmbH VirtualBox/VirtualBox, BIOS VirtualBox 12/01/2006```
 
 В нашем случае VirtualBox. 
+
+
 5. nr_open - максимальное количество открытых файлов в процессе. По умолчанию значение равно 1048576 (1024*1024).
 Но по умолчанию ограничено 1024 ulimit: ```ulimit -n```
 Ограничение ulimit можно изменить командой: ```ulimit -n 2048```
-6.  В скрин в 1 окне запускаем ``` unshare --fork --pid --mount-proc sleep 1h ```, во тором узнаем процесс и переходим в нейспейс: 
+
+ 
+6. В скрин в 1 окне запускаем ``` unshare --fork --pid --mount-proc sleep 1h ```, во тором узнаем процесс и переходим в нейспейс: 
 ``` 
 root@vagrant:/home/vagrant# ps aux | grep sleep
 root        6067  0.0  0.0   5480   532 pts/1    S+   12:40   0:00 unshare --fork --pid --mount-proc sleep 1h
@@ -146,6 +151,8 @@ root@vagrant:/# ps -e
 root@vagrant:/#
 ```
 PID sleep - ч.т.д.
+
+
 7. Вывод dmesg:
 ```cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-1.scope```
 Данный функционал ораганизован через cgroup - фича ядра, позволяющая оранизовать процессы в иерархические группы, в которых можно ограничивать или мониторить различные типы ресурсов. 
