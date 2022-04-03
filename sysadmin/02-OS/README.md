@@ -1,6 +1,6 @@
 ## Домашняя работа к занятию "3.4. Операционные системы, лекция 2"
 
-1. Копируем node_exporter в sbin: ```sudo cp node_exporter /usr/sbin/ ```
+1. `UPDATED` Копируем node_exporter в sbin: ```sudo cp node_exporter /usr/sbin/ ```
 Создаем файл юнит node_exporter.service следующего содержания: 
 
 ```
@@ -8,12 +8,15 @@
 Description=node_exporter
 
 [Service]
-ExecStart=/usr/sbin/node_exporter
+EnvironmentFile=-/usr/node_exp_env
+ExecStart=/usr/sbin/node_exporter $OPTIONS
 
 [Install]
 WantedBy=multi-user.target
 ```
 Копируем юнит в systemd: ``` sudo cp node_exporter.service /etc/systemd/system/node_exporter.service ```
+Создаем и копируем файл ```node_exp_env``` с переменной OPTIONS следующего содержания (меняет порт вывода метрик на 9111):  ```OPTIONS="--web.listen-address=":9111""```
+
 Теперь меняем сервис можно посмотреть в systemctl: ```systemctl -l status node_explorer```
 Меняем статус на enable: ```systemctl enable node_explorer```
 Можно управлять сервисом командами start и stop, после перезагрузки сервис стартует:
