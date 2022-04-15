@@ -30,3 +30,29 @@ Set-Cookie: prov=a5cb3aa0-b987-87f1-6e4f-0fb16376030c; domain=.stackoverflow.com
 В комментариях описал что получили в ответ на запрос.
 
 2. 
+```
+Request URL: http://stackoverflow.com/
+Request Method: GET
+Status Code: 307 Internal Redirect
+Referrer Policy: strict-origin-when-cross-origin
+Cross-Origin-Resource-Policy: Cross-Origin
+Location: https://stackoverflow.com/
+Non-Authoritative-Reason: HSTS
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36
+```
+Дольше всего загружается главная страница ресурса: 
+![img.png](img/screenshot.png)
+3. 79.111.165.173 
+4. 
+```
+descr:          Net By Net Holding LLC
+origin:         AS12714
+```
+5. Вывод traceroute -An 8.8.8.8:  
+```
+traceroute -An 8.8.8.8
+
+```
