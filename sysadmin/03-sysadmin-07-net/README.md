@@ -46,7 +46,23 @@ balance-alb или 6   -	Политика адаптивной балансир�
 
 
 ``` 
-
+ip -c a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: ens3: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 1500 qdisc fq_codel master bond0 state UP group default qlen 1000
+    link/ether 00:50:00:00:01:00 brd ff:ff:ff:ff:ff:ff
+3: ens4: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 1500 qdisc fq_codel master bond0 state UP group default qlen 1000
+    link/ether 00:50:00:00:01:00 brd ff:ff:ff:ff:ff:ff
+5: bond0: <BROADCAST,MULTICAST,MASTER,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 00:50:00:00:01:00 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.250.12/24 brd 192.168.250.255 scope global dynamic bond0
+       valid_lft 438sec preferred_lft 438sec
+    inet6 fe80::250:ff:fe00:100/64 scope link
+       valid_lft forever preferred_lft forever
 ```
 
 
@@ -88,7 +104,5 @@ ip neigh - отобразить таблицу
 ip neigh flush inet_addr - удаляет запись для конкретного адреса. 
 ip neigh flush all - очистить всю таблицу
 
-8. 
-``` 
-
-```
+8. Сделано: 
+![img.png](img/img.png)
