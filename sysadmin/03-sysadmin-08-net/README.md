@@ -374,7 +374,7 @@ Paths: (24 available, best #20, table default)
       rx pathid: 0, tx pathid: 0
 ```
 2. 
-Создани интерфейса: 
+Создание интерфейса: 
 
 ``` user@linux1:~$ sudo ip link add name dummy0 type dummy
 [sudo] password for user:
@@ -451,4 +451,142 @@ UNCONN                  0                       0                               
 10.16.114.242%ens5:bootpc порт используется DHCP для получения ip адреса по 68 порту для интерфейса ens5. 
 127.0.0.53%lo:domain - DNS ubuntu по-умолчанию - тоже порт открыт в режиме "прослушки".
 
-5. 
+5. Диаграмма домашней сети:  
+![img.png](img/img.png)
+6. Сделано: 
+/etc/nginx/nginx.conf
+```
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+        worker_connections 768;
+}
+
+stream {
+        upstream dns_backend {
+                server 8.8.8.8:53;
+                server 8.8.4.4:53;
+        }
+        server {
+                listen 53 udp;
+                proxy_pass dns_backend;
+                proxy_responses 1;
+                }
+        upstream tcp_backend {
+                server 192.168.0.3:3306;
+                server 192.168.0.4:3306;
+        }
+        server {
+                listen 3306;
+                proxy_pass tcp_backend;
+        }
+}
+http {
+
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+        types_hash_max_size 2048;
+        server_names_hash_bucket_size 64;
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
+        access_log /var/log/nginx/access.log;
+        error_log /var/log/nginx/error.log;
+        gzip on;
+        include /etc/nginx/conf.d/*.conf;
+        include /etc/nginx/sites-enabled/*;
+        upstream backend1 {
+                server 192.168.0.3;
+                server 192.168.0.4;
+        }
+
+}
+```
+7. 
+
+ubuntu 1
+``` 
+log syslog all;
+protocol device {
+}
+protocol direct {
+        ipv4;
+        interface "dummy0";                     # Connect to default IPv4 table
+}
+protocol kernel {
+        ipv4 {                  # Connect protocol to IPv4 table by channel
+              export all;       # Export to protocol. default is export none
+        };
+}
+protocol kernel {
+        ipv6 { export all; };
+}
+protocol static {
+        ipv4;                   # Again, IPv4 channel with default options
+}
+protocol rip {
+        ipv4 {
+                import all;
+                export where source ~ [ RTS_DEVICE, RTS_STATIC, RTS_RIP ];
+        };
+        interface "ens3"; #{
+ }
+```
+
+
+ubuntu 2
+``` 
+log syslog all;
+protocol device {
+}
+protocol direct {
+        ipv4;
+        interface "dummy0";                     # Connect to default IPv4 table
+}
+protocol kernel {
+        ipv4 {                  # Connect protocol to IPv4 table by channel
+              export all;       # Export to protocol. default is export none
+        };
+}
+protocol kernel {
+        ipv6 { export all; };
+}
+protocol static {
+        ipv4;                   # Again, IPv4 channel with default options
+}
+protocol rip {
+        ipv4 {
+                import all;
+                export where source ~ [ RTS_DEVICE, RTS_STATIC, RTS_RIP ];
+        };
+        interface "ens3"; #{
+ }
+```
+
+
+
+``` 
+
+user@nginx-1:~$ ip -br r
+default via 192.168.0.1 dev ens3 proto static
+10.10.10.1 dev dummy0 proto bird scope link metric 32
+10.20.20.2 via 192.168.0.3 dev ens3 proto bird metric 32
+192.168.0.0/24 dev ens3 proto kernel scope link src 192.168.0.2
+
+```
+
+
+``` 
+ ip -br r
+default via 192.168.0.1 dev ens3 proto static
+10.10.10.1 via 192.168.0.2 dev ens3 proto bird metric 32
+10.20.20.2 dev dummy0 proto bird scope link metric 32
+192.168.0.0/24 dev ens3 proto kernel scope link src 192.168.0.3
+```
+
+
