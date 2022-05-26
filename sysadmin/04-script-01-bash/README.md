@@ -115,7 +115,7 @@ done
 
 ### Ваш скрипт:
 ```bash
-??? Soon
+
 NAME=$(git branch | grep '*' | sed 's/* //') 
 DESCRIPTION=$(git config branch."$NAME".description)
 
