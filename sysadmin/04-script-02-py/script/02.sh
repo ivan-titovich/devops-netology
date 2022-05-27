@@ -13,6 +13,7 @@ for result in result_os.split('\n'):
         break
         else
           print("nothing")
+	  print("nothing")
 
 
 
