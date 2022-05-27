@@ -2,8 +2,6 @@
 
 import os
 
-
-
 bash_command = ["cd ~/devops-netology/sysadmin", "git status"]
 result_os = os.popen(' && '.join(bash_command)).read()
 is_change = False
