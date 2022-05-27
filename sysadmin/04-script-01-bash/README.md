@@ -123,4 +123,6 @@ if ! [[ "$START_LINE" =~ $PATTERN ]]; then
   echo "Bad commit message, see example: MYPROJ-123: commit message"
   exit 1
 fi
+
+
 ```
