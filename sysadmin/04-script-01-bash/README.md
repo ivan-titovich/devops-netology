@@ -114,57 +114,13 @@ done
 Мы хотим, чтобы у нас были красивые сообщения для коммитов в репозиторий. Для этого нужно написать локальный хук для git, который будет проверять, что сообщение в коммите содержит код текущего задания в квадратных скобках и количество символов в сообщении не превышает 30. Пример сообщения: \[04-script-01-bash\] сломал хук.
 
 ### Ваш скрипт:
-```bash
-
-NAME=$(git branch | grep '*' | sed 's/* //') 
-DESCRIPTION=$(git config branch."$NAME".description)
-
-echo "$NAME"': '$(cat "$1") > "$1"
-if [ -n "$DESCRIPTION" ] 
-then
-   echo "" >> "$1"
-   echo $DESCRIPTION >> "$1"
-fi 
-
-
-#!/usr/bin/env ruby
-message_file = ARGV[0]
-message = File.read(message_file)
-
-$regex = /\[ref: (\d+)\]/
-
-if !$regex.match(message)
-  puts "[POLICY] Your message is not formatted correctly"
+```
+#!/usr/bin/env bash
+INPUT_FILE=$1
+START_LINE=`head -n1 $INPUT_FILE`
+PATTERN="^(MYPROJ)-[[:digit:]]+: "
+if ! [[ "$START_LINE" =~ $PATTERN ]]; then
+  echo "Bad commit message, see example: MYPROJ-123: commit message"
   exit 1
-end
-
-
-# This example catches duplicate Signed-off-by lines.
-
-test "" = "$(grep '^Signed-off-by: ' "$1" |
-	 sort | uniq -c | sed -e '/^[ 	]*1[ 	]/d')" || {
-	echo >&2 Duplicate Signed-off-by lines.
-	exit 1
-	
-------	
-NAME=$(git branch | grep '*' | sed 's/* //') 
-DESCRIPTION=$(git config branch."$NAME".description)
-TEXT=$(cat "$1" | sed '/^#.*/d')
-
-if [ -n "$TEXT" ]
-then
-    echo "$NAME"': '$(cat "$1" | sed '/^#.*/d') > "$1"
-    if [ -n "$DESCRIPTION" ] 
-    then
-       echo "" >> "$1"
-       echo $DESCRIPTION >> "$1"
-    fi
-else
-    echo "Aborting commit due to empty commit message."
-    exit 1
-fi	
-}
-
-
-1
+fi
 ```
