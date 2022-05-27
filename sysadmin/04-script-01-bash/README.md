@@ -115,14 +115,14 @@ done
 
 ### Ваш скрипт:
 ```
-#!/usr/bin/env bash
+#!/bin/bash
+
 INPUT_FILE=$1
 START_LINE=`head -n1 $INPUT_FILE`
-PATTERN="^(MYPROJ)-[[:digit:]]+: "
+PATTERN="^\[+([[:digit:]])+-+([[:alpha:]])+\]+: +(.{1,30})$"
 if ! [[ "$START_LINE" =~ $PATTERN ]]; then
   echo "Bad commit message, see example: MYPROJ-123: commit message"
   exit 1
 fi
 
-grfe
 ```
