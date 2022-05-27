@@ -145,6 +145,24 @@ test "" = "$(grep '^Signed-off-by: ' "$1" |
 	 sort | uniq -c | sed -e '/^[ 	]*1[ 	]/d')" || {
 	echo >&2 Duplicate Signed-off-by lines.
 	exit 1
+	
+------	
+NAME=$(git branch | grep '*' | sed 's/* //') 
+DESCRIPTION=$(git config branch."$NAME".description)
+TEXT=$(cat "$1" | sed '/^#.*/d')
+
+if [ -n "$TEXT" ]
+then
+    echo "$NAME"': '$(cat "$1" | sed '/^#.*/d') > "$1"
+    if [ -n "$DESCRIPTION" ] 
+    then
+       echo "" >> "$1"
+       echo $DESCRIPTION >> "$1"
+    fi
+else
+    echo "Aborting commit due to empty commit message."
+    exit 1
+fi	
 }
 
 ```
