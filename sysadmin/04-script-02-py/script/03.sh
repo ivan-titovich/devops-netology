@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-
+import sys
 
 
 bash_command = ["cd ~/devops-netology/sysadmin", "git status"]
@@ -12,3 +12,4 @@ for result in result_os.split('\n'):
   if result.find('изменено') != -1:
     prepare_result = result.replace('\tизменено:      ', '')
     print(f"{path}/{prepare_result}")
+print(sys.argv[1])
