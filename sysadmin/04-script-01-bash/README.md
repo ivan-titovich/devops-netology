@@ -114,13 +114,14 @@ done
 Мы хотим, чтобы у нас были красивые сообщения для коммитов в репозиторий. Для этого нужно написать локальный хук для git, который будет проверять, что сообщение в коммите содержит код текущего задания в квадратных скобках и количество символов в сообщении не превышает 30. Пример сообщения: \[04-script-01-bash\] сломал хук.
 
 ### Ваш скрипт:
-```
+```bash
 #!/usr/bin/env bash
+
 INPUT_FILE=$1
 START_LINE=`head -n1 $INPUT_FILE`
-PATTERN="^(MYPROJ)-[[:digit:]]+: "
+PATTERN="^\[+([[:digit:]])+-+([[:alpha:]])+\]+: +(.{1,30})$"
 if ! [[ "$START_LINE" =~ $PATTERN ]]; then
-  echo "Bad commit message, see example: MYPROJ-123: commit message"
+  echo "Bad commit message, see example: 04-script: commit message"
   exit 1
 fi
 ```
