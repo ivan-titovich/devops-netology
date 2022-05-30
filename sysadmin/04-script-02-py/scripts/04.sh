@@ -3,18 +3,24 @@ import os
 import time
 import socket
 
-drive[0] = socket.gethostbyname('drive.google.com')
-#mail = socket.gethostbyname('mail.google.com')
-#google = socket.gethostbyname('google.com')
+stop = 0
 
-while 1 == 1 :
-  if drive[0] == socket.gethostbyname('drive.google.com'):
-    print(socket.gethostbyname('drive.google.com'))
-  else:
-    print(socket.gethostbyname('drive.google.com'))
+servers = {'drive.google.com': 0, 'mail.google.com': 0, 'google.com': 0}
+servers['drive.google.com'] = socket.gethostbyname('drive.google.com')
+servers['mail.google.com'] = socket.gethostbyname('mail.google.com')
+servers['google.com'] = socket.gethostbyname('google.com')
 
-  time.sleep(1)
-#  print(mail)04.sh
-#  time.sleep(1)
-#  print(google)
-#  time.sleep(1)
+
+while stop != 1 :
+  for k,v in servers.items():
+    time.sleep(0.2)
+    if  socket.gethostbyname(k) == str(v) :
+      old_ip = v
+      print(f"<{k}> - <{v}>")
+    else :
+      stop = 1
+      print(f"[ERROR] <{k}> IP mismatch: <{old_ip}> <{v}>")
+
+
+
+
