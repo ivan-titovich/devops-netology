@@ -49,11 +49,11 @@ if arg_branch != None :
               print("[FATAL ERROR]")
               sys.exit()
 
-bash_command_pr = "gh pr create --title \"Pull request from script\" --body \"" + arg_pr_commit + "\""
-
-result_os = os.popen(bash_command_pr).read()
-for result in result_os.split('\n'):
-  print(result)
+#bash_command_pr = "gh pr create --title \"Pull request from script\" --body \"" + arg_pr_commit + "\""
+#
+#result_os = os.popen(bash_command_pr).read()
+#for result in result_os.split('\n'):
+#  print(result)
 
 #git switch -c new_dev
 #git commit -a -m "new commit message"
