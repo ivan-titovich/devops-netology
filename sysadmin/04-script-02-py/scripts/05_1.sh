@@ -32,7 +32,7 @@ if arg_branch != None :
     if result_cb.find("fatal") != -1 :
       print("[FATAL ERROR]: Wrong name for branch or branch already exists. Or something else FATAL. ")
       sys.exit()
-    elif result_cb.find("переключено") != -1 :
+    else :
       bash_command_commit = "git commit -a -m \"" + arg_commit + "\""
       print(bash_command_commit)
       result_create_commit= os.popen(bash_command_commit + " 2>&1").read()
@@ -48,6 +48,8 @@ if arg_branch != None :
             if result_p.find("fatal") != -1 :
               print("[FATAL ERROR]")
               sys.exit()
+
+
 
 bash_command_pr = "gh pr create --title \"Pull request from script\" --body \"" + arg_pr_commit + "\""
 
