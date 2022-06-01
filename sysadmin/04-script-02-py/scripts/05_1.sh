@@ -19,15 +19,20 @@ if len(sys.argv) > 1 :
       arg_branch = sys.argv[sys.argv.index(arg)+1]
     elif arg == "-c":
       arg_commit = sys.argv[sys.argv.index(arg)+1]
-
 else :
   print("[ERROR] No arguments.")
   sys.exit()
+
+print(arg_pr_commit)
+print(arg_branch)
+print(arg_commit)
+
 
 if arg_branch != None :
   bash_command_branch = "git checkout -b \"" + arg_branch + "\""
   print(bash_command_branch)
   result_create_branch = os.popen(bash_command_branch + " 2>&1").read()
+  time.sleep(2)
   for result_cb in result_create_branch.split('\n'):
     if result_cb.find("fatal") != -1 :
       print("[FATAL ERROR]: Wrong name for branch or branch already exists. Or something else FATAL. ")
@@ -36,6 +41,7 @@ if arg_branch != None :
       bash_command_commit = "git commit -a -m \"" + arg_commit + "\""
       print(bash_command_commit)
       result_create_commit= os.popen(bash_command_commit + " 2>&1").read()
+      time.sleep(2)
       for result_commit in result_create_commit.split('\n'):
         if result_commit.find("fatal") != -1 :
           print("[FATAL ERROR]: in commit. ")
@@ -44,6 +50,7 @@ if arg_branch != None :
           bash_command_push = "git push --set-upstream github \"" + arg_branch + "\""
           print(bash_command_push)
           result_push = os.popen(bash_command_push + " 2>&1").read()
+          time.sleep(2)
           for result_p in result_push.split('\n'):
             if result_p.find("fatal") != -1 :
               print("[FATAL ERROR]")
