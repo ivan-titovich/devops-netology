@@ -4,8 +4,6 @@ import sys
 import time
 import socket
 
-
-#bash_command1 = ["gh pr create --title \"The bug is fixed\" --body \"Everything works again\""]
 arg_branch = None
 arg_commit = None
 
@@ -21,8 +19,7 @@ if len(sys.argv) > 1 :
       arg_branch = sys.argv[sys.argv.index(arg)+1]
     elif arg == "-c":
       arg_commit = sys.argv[sys.argv.index(arg)+1]
-#    elif arg == "--title" || arg == "--body" :
-#      print("Wrong arguments! Must be, for example, something like this: -- title \"title here\" --body \"body here\"")
+
 else :
   print("[ERROR] No arguments.")
   sys.exit()
@@ -39,27 +36,24 @@ if arg_branch != None :
       bash_command_commit = "git commit -a -m \"" + arg_commit + "\""
       print(bash_command_commit)
       result_create_commit= os.popen(bash_command_commit + " 2>&1").read()
-        for result_commit in result_create_commit.split('\n'):
-              if result_commit.find("fatal") != -1 :
-              print("[FATAL ERROR]: in commit. ")
+      for result_commit in result_create_commit.split('\n'):
+        if result_commit.find("fatal") != -1 :
+          print("[FATAL ERROR]: in commit. ")
+          sys.exit()
+        else :
+          bash_command_push = "git push --set-upstream github \"" + arg_branch + "\""
+          print(bash_command_push)
+          result_push = os.popen(bash_command_push + " 2>&1").read()
+          for result_p in result_push.split('\n'):
+            if result_p.find("fatal") != -1 :
+              print("[FATAL ERROR]")
               sys.exit()
-              else :
-                bach_command_push = "git push --set-upstream github \"" + arg_branch + "\""
-                print(bash_command_push)
-                result_push = os.popen(bash_command_push + " 2>&1").read()
-                for result_p in result_push.split('\n'):
-                  if result_p.find("fatal") != -1 :
-                    print("[FATAL ERROR]")
-                    sys.exit()
-
 
 bash_command_pr = "gh pr create --title \"Pull request from script\" --body \"" + arg_pr_commit + "\""
-
 
 result_os = os.popen(bash_command_pr).read()
 for result in result_os.split('\n'):
   print(result)
-
 
 #git switch -c new_dev
 #git commit -a -m "new commit message"
