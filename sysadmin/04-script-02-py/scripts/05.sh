@@ -7,8 +7,6 @@ bash_command1 = ["gh pr create --title \"The bug is fixed\" --body \"Everything 
 #path = bash_command[0].replace('cd ', '')
 if len(sys.argv) > 1 :
   for arg in sys.argv:
-#    print(sys.argv.index(arg)+1)
-#    print(arg)
     if arg == "--title":
       arg_title = sys.argv[sys.argv.index(arg)+1]
     elif arg == "--body":
@@ -17,9 +15,21 @@ if len(sys.argv) > 1 :
 #      print("Wrong arguments! Must be, for example, something like this: -- title \"title here\" --body \"body here\"")
 else :
   print("[ERROR] No arguments.")
+  sys.exit()
 
-bash_command = "gh pr create --title \""+arg_title+"\" --body \""+arg_body+"\""
+bash_command = "gh pr create --title \"" + arg_title + "\" --body \"" + arg_body + "\""
 
-print(arg_title)
-print(arg_body)
-print(bash_command)
+#result_os = os.popen(' && '.join(bash_command)).read()
+result_os = os.popen(bash_command).read()
+for result in result_os.split('\n'):
+  print(result)
+#  if result.find('изменено') != -1:
+#    prepare_result = result.replace('\tизменено:      ', '')
+#    print(f"{path}/{prepare_result}")
+#  else:
+#    print('Репозитория гит в папке не существует')
+
+#
+#print(arg_title)
+#print(arg_body)
+#print(bash_command)
