@@ -1,4 +1,13 @@
 #!/usr/bin/env python3
+
+# flags:
+# -b - name of new branch
+# -c - text for commit message
+# -prc - pull request commit. Without it didnt work.
+# example
+#./05.sh -b "branch_name" -c "Commit message." -prc "Pull request commit message."
+
+
 import os
 import sys
 import time

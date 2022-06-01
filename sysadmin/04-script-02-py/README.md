@@ -100,15 +100,70 @@ while stop != 1 :
 
 5.Так получилось, что мы очень часто вносим правки в конфигурацию своей системы прямо на сервере. Но так как вся наша команда разработки держит файлы конфигурации в github и пользуется gitflow, то нам приходится каждый раз переносить архив с нашими изменениями с сервера на наш локальный компьютер, формировать новую ветку, коммитить в неё изменения, создавать pull request (PR) и только после выполнения Merge мы наконец можем официально подтвердить, что новая конфигурация применена. Мы хотим максимально автоматизировать всю цепочку действий. Для этого нам нужно написать скрипт, который будет в директории с локальным репозиторием обращаться по API к github, создавать PR для вливания текущей выбранной ветки в master с сообщением, которое мы вписываем в первый параметр при обращении к py-файлу (сообщение не может быть пустым). При желании, можно добавить к указанному функционалу создание новой ветки, commit и push в неё изменений конфигурации. С директорией локального репозитория можно делать всё, что угодно. Также, принимаем во внимание, что Merge Conflict у нас отсутствуют и их точно не будет при push, как в свою ветку, так и при слиянии в master. Важно получить конечный результат с созданным PR, в котором применяются наши изменения. 
 ```python
+#!/usr/bin/env python3
+
+# flags:
+# -b - name of new branch
+# -c - text for commit message
+# -prc - pull request commit. Without this argument, the script does not work.
+# example
+#./05.sh -b "branch_name" -c "Commit message." -prc "Pull request commit message."
+
 import os
+import sys
+import time
 
 
-https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
+arg_branch = None
+arg_commit = None
 
+if len(sys.argv) > 1 :
+  for arg in sys.argv:
+    if arg == "-prc":
+      if (sys.argv.index(arg)+1) >= len(sys.argv):
+        print("[ERROR] Must be commit message.")
+        sys.exit()
+      else:
+        arg_pr_commit = sys.argv[sys.argv.index(arg)+1]
+    elif arg == "-b":
+      arg_branch = sys.argv[sys.argv.index(arg)+1]
+    elif arg == "-c":
+      arg_commit = sys.argv[sys.argv.index(arg)+1]
 
+else :
+  print("[ERROR] No arguments.")
+  sys.exit()
 
-gh pr create --title "The bug is fixed" --body "Everything works again"
+if arg_branch != None :
+  bash_command_branch = "git checkout -b \"" + arg_branch + "\""
 
+  result_create_branch = os.popen(bash_command_branch + " 2>&1").read()
+  for result_cb in result_create_branch.split('\n'):
+    if result_cb.find("fatal") != -1 :
+      print("[FATAL ERROR]: Wrong name for branch or branch already exists. Or something else FATAL. ")
+      sys.exit()
+    else :
+      bash_command_commit = "git commit -a -m \"" + arg_commit + "\""
+
+      result_create_commit= os.popen(bash_command_commit + " 2>&1").read()
+      for result_commit in result_create_commit.split('\n'):
+        if result_commit.find("fatal") != -1 :
+          print("[FATAL ERROR]: in commit. ")
+          sys.exit()
+        else :
+          bash_command_push = "git push --set-upstream github \"" + arg_branch + "\""
+
+          result_push = os.popen(bash_command_push + " 2>&1").read()
+          for result_p in result_push.split('\n'):
+            if result_p.find("fatal") != -1 :
+              print("[FATAL ERROR]")
+              sys.exit()
+
+bash_command_pr = "gh pr create --title \"Pull request from script\" --body \"" + arg_pr_commit + "\""
+
+result_os = os.popen(bash_command_pr).read()
+for result in result_os.split('\n'):
+  print(result)
 ```
 
 ---
