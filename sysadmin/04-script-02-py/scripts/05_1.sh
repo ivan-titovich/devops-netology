@@ -57,6 +57,7 @@ result_os = os.popen(bash_command_pr).read()
 for result in result_os.split('\n'):
   print(result)
 
+
 #git switch -c new_dev
 #git commit -a -m "new commit message"
 #git push --set-upstream github new_dev
