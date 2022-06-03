@@ -1,3 +1,7 @@
 drive.google.com: 64.233.165.194
 google.com: 108.177.14.102
 mail.google.com: 64.233.161.19
+- color:
+  - green
+  - red
+  - yellow

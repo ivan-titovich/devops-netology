@@ -8,7 +8,7 @@ import json
 import yaml
 
 regex_json = ".json$"
-regex_yaml = '.(yml)|(yaml)$'
+regex_yaml = '.(.yml)|(.yaml)$'
 regex_json_ident =  '^{'
 regex_yaml_ident =  '^(?!{)'
 jf = None
@@ -33,6 +33,7 @@ if len(sys.argv) > 1:
 
   elif re.search( regex_yaml, input_filename) :
     filename_w_e = re.sub(regex_yaml, '', input_filename)
+    print(filename_w_e)
     try:
       with open(input_filename) as yaml_file:
         yaml_data = yaml.safe_load(yaml_file)

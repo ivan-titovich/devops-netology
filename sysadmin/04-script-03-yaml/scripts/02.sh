@@ -21,15 +21,25 @@ while stop != 1 :
       old_ip = v
       print(f"<{k}> - <{v}>")
       servers[k] = v
+      with open('services.json', 'w') as f:
+        json.dump(servers, f, sort_keys=True, indent=2)
+      with open('services.yaml', 'w') as file:
+        yaml.dump(servers, file)
+
     else :
       stop = 1
       print(f"[ERROR] <{k}> IP mismatch: <{old_ip}> <{v}>")
       servers[k] = v
+      with open('services.json', 'w') as f:
+        json.dump(servers, f, sort_keys=True, indent=2)
+      with open('services.yaml', 'w') as file:
+        yaml.dump(servers, file)
 
-with open('services.json', 'w') as f:
-  json.dump(servers, f, sort_keys=True, indent=2)
-with open('services.yaml', 'w') as file:
-  yaml.dump(servers, file)
+
+#with open('services.json', 'w') as f:
+#  json.dump(servers, f, sort_keys=True, indent=2)
+#with open('services.yaml', 'w') as file:
+#  yaml.dump(servers, file)
 
 
 
