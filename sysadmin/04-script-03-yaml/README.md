@@ -196,18 +196,24 @@ if len(sys.argv) > 1:
   "google.com": "108.177.14.102",
   "mail.google.com": "64.233.161.19"
 }
+
+
  $: ./03.sh services2.yaml
 [YAML validation ERROR] while parsing a block mapping
   in "services2.yaml", line 1, column 1
 expected <block end>, but found '-'
   in "services2.yaml", line 4, column 1
+  
+  
  $: ./03.sh services1.yaml
 drive.google.com: 64.233.165.194
 google.com: 108.177.14.102
 mail.google.com: 64.233.161.19
+
+
 $: ./03.sh services3.json
 [JSON validation ERROR] Expecting ',' delimiter: line 2 column 29 (char 30)
 
 ```
-['services'](/scripts/services.json)
+
 
