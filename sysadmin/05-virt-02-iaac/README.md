@@ -66,5 +66,7 @@ ansible 2.9.6
 - Создать виртуальную машину.
 - Зайти внутрь ВМ, убедиться, что Docker установлен с помощью команды
 ```
-docker ps
+vagrant@server1:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+vagrant@server1:~$
 ```
