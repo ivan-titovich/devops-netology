@@ -23,6 +23,18 @@ scrape_configs:
     static_configs:
       - targets: ['cadvisor:8080']
 
+#new job
+  - job_name: 'nodeexporter2'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['nodeexporter:9100']
+
+#new job
+  - job_name: 'cadvisor2'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['cadvisor:8080']
+
   - job_name: 'prometheus'
     scrape_interval: 10s
     static_configs:

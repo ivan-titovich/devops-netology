@@ -16,6 +16,8 @@ services:
       - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
     restart: unless-stopped
     network_mode: host
+    ports:
+      - "9100:9100"
     labels:
       org.label-schema.group: "monitoring"
 
@@ -30,6 +32,8 @@ services:
       - /cgroup:/cgroup:ro
     restart: unless-stopped
     network_mode: host
+    ports:
+      - "8080:8080"
     labels:
       org.label-schema.group: "monitoring"
   
