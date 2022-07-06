@@ -1,4 +1,6 @@
-{
+{51.250.76.19951.250.76.199
+
+
   "builders": [
     {
       "disk_type": "network-nvme",
@@ -8,7 +10,7 @@
       "image_name": "centos-7-base",
       "source_image_family": "centos-7",
       "ssh_username": "centos",
-      "subnet_id": "e9bmkhct9670kmrb9obs",
+      "subnet_id": "e9bfa3ku494nldnve7o0",
       "token": "AQAAAABiid79AATuwX0fOIxOQ0s2viuDhLsZH_o",
       "type": "yandex",
       "use_ipv4_nat": true,
