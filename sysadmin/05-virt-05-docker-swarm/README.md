@@ -29,7 +29,7 @@ docker node ls
 ```
 > <p align="center">
 >
-> <img width="1200" height="600" src="assets/2ex_docker_node_ls.png">
+> <img  src="assets/2ex_docker_node_ls.png">
 >
 > </p>
 ## Задача 3
@@ -42,7 +42,7 @@ docker service ls
 ```
 > <p align="center">
 >
-> <img width="1200" height="600" src="assets/3ex_docker_service_ls.png">
+> <img src="assets/3ex_docker_service_ls.png">
 >
 > </p>
 ## Задача 4 (*)
