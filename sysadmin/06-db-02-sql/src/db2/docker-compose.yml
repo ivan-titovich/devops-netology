@@ -1,0 +1,26 @@
+
+version: '3.1'
+
+volumes:
+    backup:
+      external: true
+    pgdata: {}
+
+services:
+
+  db2:
+    image: postgres:12.11-bullseye
+    volumes:
+      - backup:/home/postgre/backup
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+
+
+
+
