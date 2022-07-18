@@ -1,0 +1,24 @@
+
+version: '3.1'
+
+
+volumes:
+    backup:
+      external: true
+    pgdata: {}
+
+
+services:
+
+  db1:
+    image: mysql:8.0.21
+    volumes:
+      - backup:/home/mysql/backup
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+    environment:
+      MYSQL_DATABASE: "mysql"
+      MYSQL_USER: "mysql"
+      MYSQL_ROOT_PASSWORD: example
+    ports:
+      - 5432:5432
