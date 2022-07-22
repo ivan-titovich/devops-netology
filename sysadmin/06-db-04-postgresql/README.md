@@ -68,19 +68,49 @@ orders   |price  |        4|
 провести разбиение таблицы на 2 (шардировать на orders_1 - price>499 и orders_2 - price<=499).
 
 Предложите SQL-транзакцию для проведения данной операции.
+> Т.к. существующую таблицу шардировать нельзя, необходимо создать новую, разбить согласно условиям задания, скопировать в нее данные, переименовать: 
+``` 
+CREATE TABLE new_orders (LIKE orders) PARTITION BY RANGE (price) ;
+CREATE TABLE orders_1 PARTITION OF new_orders FOR VALUES FROM ('499') TO ('2147483647') ;
+CREATE TABLE orders_2 PARTITION OF new_orders FOR VALUES FROM ('0') TO ('499');
 
+INSERT INTO new_orders(id, title, price) SELECT id, title, price FROM orders;
+
+ALTER TABLE orders RENAME TO orders_backup;
+ALTER TABLE new_orders RENAME TO orders;
+
+DROP TABLE	orders_backup;
+```
 Можно ли было изначально исключить "ручное" разбиение при проектировании таблицы orders?
+
+> Да. Изначально нужно было создать таблицу с поддержкой разбиения.
+``` 
+CREATE TABLE new_orders (LIKE orders) PARTITION BY RANGE (price) ;
+CREATE TABLE orders_1 PARTITION OF new_orders FOR VALUES FROM ('499') TO ('2147483647') ;
+CREATE TABLE orders_2 PARTITION OF new_orders FOR VALUES FROM ('0') TO ('499');
+```
 
 ## Задача 4
 
 Используя утилиту `pg_dump` создайте бекап БД `test_database`.
 
+``` 
+sudo docker exec  pdb /bin/bash -c "/usr/bin/pg_dump  -U postgres test_database > /home/test_db-backup.sql" 
+
+```
+
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
+>В конце файла дописать:
+``` 
+ALTER TABLE ONLY public.orders ADD CONSTRAINT orders_title_price_key UNIQUE (title, price);
 
----
+ALTER TABLE ONLY public.orders_1 ADD CONSTRAINT orders_1_title_price_key UNIQUE (title, price);
 
-### Как cдавать задание
+ALTER TABLE ONLY public.orders_2 ADD CONSTRAINT orders_2_title_price_key UNIQUE (title, price);
 
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
+ALTER INDEX public.orders_title_price_key ATTACH PARTITION public.orders_1_title_price_key;
 
+ALTER INDEX public.orders_title_price_key ATTACH PARTITION public.orders_2_title_price_key;
+
+```
 ---

@@ -1,0 +1,7 @@
+ALTER TABLE ONLY orders ADD UNIQUE (title, price);
+
+ALTER  TABLE ONLY orders_1  ADD UNIQUE (title, price);
+ALTER  TABLE ONLY orders_2  ADD UNIQUE (title, price);
+
+ALTER INDEX orders_title_price_key ATTACH PARTITION orders_1_title_price_key;
+ALTER INDEX orders_title_price_key ATTACH PARTITION orders_2_title_price_key;
