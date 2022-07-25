@@ -1,0 +1,10 @@
+network.host: 0.0.0.0
+http.port: 9200
+transport.host: localhost
+transport.tcp.port: 9300
+cluster.name: "netology_test"
+#path.conf: "/var/lib"
+path.data: "/var/lib"
+#path.work: "/var/lib"
+#path.logs: "/var/lib"
+xpack.security.enabled: true
