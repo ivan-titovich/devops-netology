@@ -51,13 +51,14 @@ PASSWORD elastic = 0Qs0gkkBlNgU6Jn06Fk7
 
 
 
-sudo docker build --tag=ela3 .
-sudo docker run -d -u elastic  -e ELASTIC_PASSWORD=MagicWord --name ela3 ela3
-
-
+sudo docker build --tag=es01 .
+sudo docker run -d --name es02 es02   
+sudo docker exec -it es02 bash
 
 ```
+https://medium.com/@TimvanBaarsen/how-to-run-an-elasticsearch-7-x-single-node-cluster-for-local-development-using-docker-compose-2b7ab73d8b82
 
+elastic.co/guide/en/elasticsearch/reference/current/docker.html
 
 Подсказки:
 - при сетевых проблемах внимательно изучите кластерные и сетевые настройки в elasticsearch.yml
