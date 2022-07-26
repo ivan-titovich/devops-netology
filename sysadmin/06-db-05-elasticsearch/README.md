@@ -24,36 +24,34 @@
 
 ``` 
 
+sudo docker build --tag=ess .
+sudo docker run -d -p 127.0.0.1:9200:9200 -p 127.0.0.1:9300:9300 --name es1 ess
+sudo docker exec -it es1 bash  
+bin/elasticsearch-setup-passwords auto
+
+
 Changed password for user apm_system
-PASSWORD apm_system = 62wd0yy74ifu3igVSBvS
+PASSWORD apm_system = OSXfpSbT34iU9N77DK8J
 
 Changed password for user kibana_system
-PASSWORD kibana_system = DLx8LCASxU8JLylbcUBm
+PASSWORD kibana_system = wlU2EhmAuf5YmIFqPYb0
 
 Changed password for user kibana
-PASSWORD kibana = DLx8LCASxU8JLylbcUBm
+PASSWORD kibana = wlU2EhmAuf5YmIFqPYb0
 
 Changed password for user logstash_system
-PASSWORD logstash_system = FF2SqxzQQ3MUaFzYgFhh
+PASSWORD logstash_system = iqvr7OKZVVOrGttgQ8o5
 
 Changed password for user beats_system
-PASSWORD beats_system = 7tPgCGoVuOIxmRmhGBsp
+PASSWORD beats_system = Cw51x35ZF3ZtOuO24cjp
 
 Changed password for user remote_monitoring_user
-PASSWORD remote_monitoring_user = GwBWAFe3z5LUK7slU8BR
+PASSWORD remote_monitoring_user = MkDrZb3S2vEIDwTcCVo4
 
 Changed password for user elastic
-PASSWORD elastic = 0Qs0gkkBlNgU6Jn06Fk7
-
-Changed password for user elastic
-PASSWORD elastic = 0Qs0gkkBlNgU6Jn06Fk7
+PASSWORD elastic = LgCEwlHBUwyinWHLG7WR
 
 
-
-
-sudo docker build --tag=es01 .
-sudo docker run -d --name es02 es02   
-sudo docker exec -it es02 bash
 
 ```
 https://medium.com/@TimvanBaarsen/how-to-run-an-elasticsearch-7-x-single-node-cluster-for-local-development-using-docker-compose-2b7ab73d8b82
