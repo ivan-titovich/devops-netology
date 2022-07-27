@@ -11,7 +11,10 @@
 
 - составьте Dockerfile-манифест для elasticsearch
 - соберите docker-образ и сделайте `push` в ваш docker.io репозиторий
+`sudo docker build --tag=titovichia/es.7.17.5 .`
+`sudo docker image push titovichia/es.7.17.5`
 - запустите контейнер из получившегося образа и выполните запрос пути `/` c хост-машины
+
 
 Требования к `elasticsearch.yml`:
 - данные `path` должны сохраняться в `/var/lib` 
@@ -19,44 +22,43 @@
 
 В ответе приведите:
 - текст Dockerfile манифеста
-- ссылку на образ в репозитории dockerhub
-- ответ `elasticsearch` на запрос пути `/` в json виде
-
-``` 
-
-sudo docker build --tag=ess .
-sudo docker run -d -p 127.0.0.1:9200:9200 -p 127.0.0.1:9300:9300 --name es1 ess
-sudo docker exec -it es1 bash  
-bin/elasticsearch-setup-passwords auto
-
-
-Changed password for user apm_system
-PASSWORD apm_system = OSXfpSbT34iU9N77DK8J
-
-Changed password for user kibana_system
-PASSWORD kibana_system = wlU2EhmAuf5YmIFqPYb0
-
-Changed password for user kibana
-PASSWORD kibana = wlU2EhmAuf5YmIFqPYb0
-
-Changed password for user logstash_system
-PASSWORD logstash_system = iqvr7OKZVVOrGttgQ8o5
-
-Changed password for user beats_system
-PASSWORD beats_system = Cw51x35ZF3ZtOuO24cjp
-
-Changed password for user remote_monitoring_user
-PASSWORD remote_monitoring_user = MkDrZb3S2vEIDwTcCVo4
-
-Changed password for user elastic
-PASSWORD elastic = LgCEwlHBUwyinWHLG7WR
-
-
-
+```dockerfile
+FROM elasticsearch:7.17.5
+COPY --chown=elasticsearch:elasticsearch elasticsearch.yml /usr/share/elasticsearch/config/
+RUN chown -R elasticsearch:elasticsearch /var/lib
 ```
-https://medium.com/@TimvanBaarsen/how-to-run-an-elasticsearch-7-x-single-node-cluster-for-local-development-using-docker-compose-2b7ab73d8b82
-
-elastic.co/guide/en/elasticsearch/reference/current/docker.html
+```yaml
+network.host: 0.0.0.0
+http.port: 9200
+transport.host: localhost
+discovery.type: single-node
+transport.tcp.port: 9300
+cluster.name: "netology_test"
+path.data: "/var/lib"
+xpack.security.enabled: true
+```
+- ссылку на образ в репозитории dockerhub
+> https://hub.docker.com/repository/docker/titovichia/es.7.17.5
+- ответ `elasticsearch` на запрос пути `/` в json виде
+```json
+{
+  "name" : "f9c733cd6935",
+  "cluster_name" : "netology_test",
+  "cluster_uuid" : "OBmTYRD1RFSyKNJFsJbCIg",
+  "version" : {
+    "number" : "7.17.5",
+    "build_flavor" : "default",
+    "build_type" : "docker",
+    "build_hash" : "8d61b4f7ddf931f219e3745f295ed2bbc50c8e84",
+    "build_date" : "2022-06-23T21:57:28.736740635Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.11.1",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
 
 Подсказки:
 - при сетевых проблемах внимательно изучите кластерные и сетевые настройки в elasticsearch.yml
@@ -74,6 +76,8 @@ elastic.co/guide/en/elasticsearch/reference/current/docker.html
 - создавать и удалять индексы
 - изучать состояние кластера
 - обосновывать причину деградации доступности данных
+
+https://web.postman.co/workspace/My-Workspace~5ae5d554-4182-4831-8cd5-ef96d970e0a1/request/create?requestId=fbfe82e7-e868-4601-a0b9-19c78f35019b
 
 Ознакомтесь с [документацией](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html) 
 и добавьте в `elasticsearch` 3 индекса, в соответствии со таблицей:
