@@ -89,7 +89,7 @@ xpack.security.enabled: true
 
 Получите список индексов и их статусов, используя API и **приведите в ответе** на задание.
 `http://localhost:9200/_cat/indices`:
-```JSON
+```
 green  open .geoip_databases lgyWF-AsSFqgNUjbCebG7w 1 0 40 0 37.6mb 37.6mb
 green  open .security-7      DkyfyEq-SaejlHoQ3af7tA 1 0  7 0 25.7kb 25.7kb
 green  open ind-1            vXOz4AU5Suq0l1gART7BOA 1 0  0 0   226b   226b
@@ -98,7 +98,7 @@ yellow open ind-2            bzBXxzwoS22ghVZzGsqKKw 2 1  0 0   452b   452b
 ```
 Получите состояние кластера `elasticsearch`, используя API.
 `http://localhost:9200/_cat/health`
-```JSON 
+```
 1658985751 05:22:31 netology_test yellow 1 1 11 11 0 0 11 0 - 50.0%
 ```
 Как вы думаете, почему часть индексов и кластер находится в состоянии yellow?
@@ -107,7 +107,7 @@ yellow open ind-2            bzBXxzwoS22ghVZzGsqKKw 2 1  0 0   452b   452b
 - > Для индекса ind-2: указано количество шард 2 и одна со статусом ASSIGNED, одна со статусом UNASSIGNED;
 - > Для индекса ind-3: указано количество шард 4 и одна со статусом ASSIGNED, 3 со статусом UNASSIGNED;
 - > Весь индекс в желтом статусе т.к. есть индексы с желтым статусом и не обеспечена сохранность данных в случае сбоя.
-```JSON
+```
 ind-1            0 p STARTED     0   226b 127.0.0.1 f9c733cd6935
 ind-3            1 p STARTED     0   226b 127.0.0.1 f9c733cd6935
 ind-3            1 r UNASSIGNED                     
@@ -202,7 +202,7 @@ drwxrwxr-x 5 elasticsearch root           4096 Jul 28 06:13 indices/
 
 Удалите индекс `test` и создайте индекс `test-2`. **Приведите в ответе** список индексов.
 
-```JSON
+```
 green open .geoip_databases O7y3XdmIRn-niI6iGz6gxA 1 0 40 0 37.6mb 37.6mb
 green open .security-7      1cxgu9vtS6Se2JgW8lJByQ 1 0  7 0 25.7kb 25.7kb
 green open test2            q0YRoz9oTbm49wQaA6z7Jw 1 0  0 0   226b   226b
@@ -218,8 +218,7 @@ green open test2            q0YRoz9oTbm49wQaA6z7Jw 1 0  0 0   226b   226b
 
 **Приведите в ответе** запрос к API восстановления и итоговый список индексов.
 `GET http://localhost:9200/_cat/indices`
-```json
-
+```
 green open .geoip_databases O7y3XdmIRn-niI6iGz6gxA 1 0 40 0 37.6mb 37.6mb
 green open .security-7      1cxgu9vtS6Se2JgW8lJByQ 1 0  7 0 25.7kb 25.7kb
 green open test             pMNY_EM2SQ2ggrEuk9TytA 1 0  0 0   226b   226b
