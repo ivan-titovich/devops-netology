@@ -77,7 +77,6 @@ xpack.security.enabled: true
 - изучать состояние кластера
 - обосновывать причину деградации доступности данных
 
-https://web.postman.co/workspace/My-Workspace~5ae5d554-4182-4831-8cd5-ef96d970e0a1/request/create?requestId=fbfe82e7-e868-4601-a0b9-19c78f35019b
 
 Ознакомтесь с [документацией](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html) 
 и добавьте в `elasticsearch` 3 индекса, в соответствии со таблицей:
@@ -89,12 +88,48 @@ https://web.postman.co/workspace/My-Workspace~5ae5d554-4182-4831-8cd5-ef96d970e0
 | ind-3 | 2 | 4 |
 
 Получите список индексов и их статусов, используя API и **приведите в ответе** на задание.
-
+`http://localhost:9200/_cat/indices`:
+```JSON
+green  open .geoip_databases lgyWF-AsSFqgNUjbCebG7w 1 0 40 0 37.6mb 37.6mb
+green  open .security-7      DkyfyEq-SaejlHoQ3af7tA 1 0  7 0 25.7kb 25.7kb
+green  open ind-1            vXOz4AU5Suq0l1gART7BOA 1 0  0 0   226b   226b
+yellow open ind-3            CWSx66_dRvK-RGMbD8UzFg 4 2  0 0   904b   904b
+yellow open ind-2            bzBXxzwoS22ghVZzGsqKKw 2 1  0 0   452b   452b
+```
 Получите состояние кластера `elasticsearch`, используя API.
-
+`http://localhost:9200/_cat/health`
+```JSON 
+1658985751 05:22:31 netology_test yellow 1 1 11 11 0 0 11 0 - 50.0%
+```
 Как вы думаете, почему часть индексов и кластер находится в состоянии yellow?
-
+- > Потому что для снижения вероятности потери данных необходимо, чтобы все primary шарды были со статусом ASSIGNED.
+- > Для индекса ind-1: указано количество шард 1 и она со статусом ASSIGNED;
+- > Для индекса ind-2: указано количество шард 2 и одна со статусом ASSIGNED, одна со статусом UNASSIGNED;
+- > Для индекса ind-3: указано количество шард 4 и одна со статусом ASSIGNED, 3 со статусом UNASSIGNED;
+- > Весь индекс в желтом статусе т.к. есть индексы с желтым статусом и не обеспечена сохранность данных в случае сбоя.
+```JSON
+ind-1            0 p STARTED     0   226b 127.0.0.1 f9c733cd6935
+ind-3            1 p STARTED     0   226b 127.0.0.1 f9c733cd6935
+ind-3            1 r UNASSIGNED                     
+ind-3            1 r UNASSIGNED                     
+ind-3            2 p STARTED     0   226b 127.0.0.1 f9c733cd6935
+ind-3            2 r UNASSIGNED                     
+ind-3            2 r UNASSIGNED                     
+ind-3            3 p STARTED     0   226b 127.0.0.1 f9c733cd6935
+ind-3            3 r UNASSIGNED                     
+ind-3            3 r UNASSIGNED                     
+ind-3            0 p STARTED     0   226b 127.0.0.1 f9c733cd6935
+ind-3            0 r UNASSIGNED                     
+ind-3            0 r UNASSIGNED                     
+.security-7      0 p STARTED     7 25.7kb 127.0.0.1 f9c733cd6935
+ind-2            1 p STARTED     0   226b 127.0.0.1 f9c733cd6935
+ind-2            1 r UNASSIGNED                     
+ind-2            0 p STARTED     0   226b 127.0.0.1 f9c733cd6935
+ind-2            0 r UNASSIGNED                     
+.geoip_databases 0 p STARTED    40 37.6mb 127.0.0.1 f9c733cd6935
+```
 Удалите все индексы.
+`DELEE http://localhost:9200/ind-*`
 
 **Важно**
 
@@ -114,27 +149,82 @@ https://web.postman.co/workspace/My-Workspace~5ae5d554-4182-4831-8cd5-ef96d970e0
 
 **Приведите в ответе** запрос API и результат вызова API для создания репозитория.
 
+`PUT http://localhost:9200/_snapshot/netology_backup`
+```
+{
+  "type": "fs",
+  "settings": {
+    "location": "/snapshots"
+  }
+}
+```
+`{
+    "acknowledged": true
+}`
+
 Создайте индекс `test` с 0 реплик и 1 шардом и **приведите в ответе** список индексов.
+`PUT http://localhost:9200/test`
+```
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,  
+      "number_of_replicas": 0 
+    }
+  }
+}
+```
+> Indeces: 
+``` 
+green open .geoip_databases O7y3XdmIRn-niI6iGz6gxA 1 0 40 0 37.6mb 37.6mb
+green open .security-7      1cxgu9vtS6Se2JgW8lJByQ 1 0  7 0 25.7kb 25.7kb
+green open test             59KazMPURYq0wFTdYFwAmA 1 0  0 0   226b   226b
+
+```
+
 
 [Создайте `snapshot`](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-take-snapshot.html) 
 состояния кластера `elasticsearch`.
-
+`PUT http://localhost:9200/_snapshot/netology_backup/netology_backup_280722`
 **Приведите в ответе** список файлов в директории со `snapshot`ами.
+```shell
+ll /snapshots/
+total 56
+drwxr-xr-x 1 elasticsearch elasticsearch  4096 Jul 28 06:13 ./
+drwxr-xr-x 1 root          root           4096 Jul 28 06:02 ../
+-rw-rw-r-- 1 elasticsearch root           1108 Jul 28 06:13 index-0
+-rw-rw-r-- 1 elasticsearch root              8 Jul 28 06:13 index.latest
+drwxrwxr-x 5 elasticsearch root           4096 Jul 28 06:13 indices/
+-rw-rw-r-- 1 elasticsearch root          29667 Jul 28 06:13 meta--Drm4SwxTZaGskYt6IFXYg.dat
+-rw-rw-r-- 1 elasticsearch root            511 Jul 28 06:13 snap--Drm4SwxTZaGskYt6IFXYg.dat
+
+```
 
 Удалите индекс `test` и создайте индекс `test-2`. **Приведите в ответе** список индексов.
 
+```JSON
+green open .geoip_databases O7y3XdmIRn-niI6iGz6gxA 1 0 40 0 37.6mb 37.6mb
+green open .security-7      1cxgu9vtS6Se2JgW8lJByQ 1 0  7 0 25.7kb 25.7kb
+green open test2            q0YRoz9oTbm49wQaA6z7Jw 1 0  0 0   226b   226b
+```
+
 [Восстановите](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-restore-snapshot.html) состояние
 кластера `elasticsearch` из `snapshot`, созданного ранее. 
+'DELETE http://localhost:9200/test2'
+`PUT http://localhost:9200/_snapshot/netology_backup/netology_backup_280722/_restore`
+`{
+  "indices": "test"
+}`
 
 **Приведите в ответе** запрос к API восстановления и итоговый список индексов.
+`GET http://localhost:9200/_cat/indices`
+```json
 
+green open .geoip_databases O7y3XdmIRn-niI6iGz6gxA 1 0 40 0 37.6mb 37.6mb
+green open .security-7      1cxgu9vtS6Se2JgW8lJByQ 1 0  7 0 25.7kb 25.7kb
+green open test             pMNY_EM2SQ2ggrEuk9TytA 1 0  0 0   226b   226b
+```
 Подсказки:
 - возможно вам понадобится доработать `elasticsearch.yml` в части директивы `path.repo` и перезапустить `elasticsearch`
-
----
-
-### Как cдавать задание
-
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
 
 ---

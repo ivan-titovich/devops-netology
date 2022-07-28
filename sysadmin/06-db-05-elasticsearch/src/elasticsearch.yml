@@ -6,3 +6,4 @@ transport.tcp.port: 9300
 cluster.name: "netology_test"
 path.data: "/var/lib"
 xpack.security.enabled: true
+path.repo: "/snapshots"

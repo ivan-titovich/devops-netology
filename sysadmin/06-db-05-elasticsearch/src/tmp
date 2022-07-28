@@ -5,4 +5,5 @@ sudo docker exec -it elastic01 bash
 bin/elasticsearch-setup-passwords auto
 
 Changed password for user elastic
-PASSWORD elastic = mUmcUwKrXAQGwyHXCEll
+PASSWORD elastic = 379sC9WeobEdKsNjvTTO
+
