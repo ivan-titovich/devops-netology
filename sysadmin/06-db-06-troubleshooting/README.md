@@ -14,7 +14,7 @@
 > use <YOUR-DB>;
 > db.currentOp().inprog.forEach(
 >   function(d){
->     if(d.secs_running > 5)
+>     if(d.secs_running > 180)
 >        printjson(d)
 > })
 > ```
