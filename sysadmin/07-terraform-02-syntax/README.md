@@ -189,5 +189,5 @@ Note: You didn't use the -out option to save this plan, so Terraform can't guara
 1. Ответ на вопрос: при помощи какого инструмента (из разобранных на прошлом занятии) можно создать свой образ ami?
 > `Packer`
 2. Ссылку на репозиторий с исходной конфигурацией терраформа.  
-> 
+> [Ссылка на github](https://github.com/ivan-titovich/devops-netology/tree/main/sysadmin/07-terraform-02-syntax/terraform)
  
