@@ -13,7 +13,9 @@ variable "yc_folder_id" {
 variable "yc_region" {
   default = "ru-central1-a"
 }
-
+variable "env_name" {
+  default = "stage"
+}
 
 
 locals {
@@ -21,6 +23,11 @@ locals {
     default = 2
     stage = 2
     prod = 2
+  }
+  news_platforms = {
+    default = "standard-v1"
+    stage = "standard-v1"
+    prod = "standard-v2"
   }
   news_disk_size = {
     default = 20
@@ -32,6 +39,7 @@ locals {
     stage = 1
     prod = 2
   }
+
   vpc_subnets = {
     default = [
       {

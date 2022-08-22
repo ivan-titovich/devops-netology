@@ -7,8 +7,8 @@ module "news" {
   zone = var.yc_region
   folder_id = module.vpc.folder_id
   image         = "centos-7"
-  platform_id   = "standard-v2"
-  name          = "news"
+  platform_id   = local.news_platforms[terraform.workspace]
+  name          = var.env_name
   description   = "News App Demo"
   instance_role = "news,balancer"
   users         = "centos"
