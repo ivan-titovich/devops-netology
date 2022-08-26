@@ -8,7 +8,7 @@ module "news" {
   folder_id = module.vpc.folder_id
   image         = "centos-7"
   platform_id   = local.news_platforms[terraform.workspace]
-  name          = var.env_name
+  name          = local.news_names[terraform.workspace]
   description   = "News App Demo"
   instance_role = "news,balancer"
   users         = "centos"

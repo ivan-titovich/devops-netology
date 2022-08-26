@@ -11,14 +11,17 @@ variable "yc_folder_id" {
 }
 
 variable "yc_region" {
-  default = "ru-central1-a"
+  default = ""
 }
-variable "env_name" {
-  default = "stage"
-}
+
 
 
 locals {
+  news_names = {
+    default = "stage"
+    stage = "stage"
+    prod = "prod"
+  }
   news_cores = {
     default = 2
     stage = 2

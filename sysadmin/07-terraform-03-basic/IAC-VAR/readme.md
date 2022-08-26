@@ -4,7 +4,7 @@
 
 - export TF_VAR_yc_token= - тот же токен что при установке cli
 - export TF_VAR_yc_cloud_id= взять из ГУИ облака
-- export TF_VAR_env_name=
+
 Если возникли проблемы при работе приложения, нет доступа к новостному API то выполните следующие действия:
 
 - Зарегистрируйтесь и получите API ключ [News API](https://newsapi.org/register)
@@ -26,7 +26,9 @@ make all
 ### Для удаления из облака:
 
 ```shell
-make destroy && make clean
+ENV=stage make destroy
+ENV=prod make destroy
+make clean
 ```
 
 
