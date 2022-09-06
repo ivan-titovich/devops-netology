@@ -14,19 +14,19 @@
 
 1. Найдите, где перечислены все доступные `resource` и `data_source`, приложите ссылку на эти строки в коде на 
 гитхабе.   
-> [Строка 415: DataSourcesMap](/terraform-provider-aws/internal/provider/provider.go)
+> [Строка 415: DataSourcesMap](https://github.com/hashicorp/terraform-provider-aws/internal/provider/provider.go)
 > 
 > 
-> [Строка 925: ResourcesMap](/terraform-provider-aws/internal/provider/provider.go)
+> [Строка 925: ResourcesMap](/https://github.com/hashicorp/terraform-provider-aws/internal/provider/provider.go)
 > 
 > 
 2. Для создания очереди сообщений SQS используется ресурс `aws_sqs_queue` у которого есть параметр `name`. 
     * С каким другим параметром конфликтует `name`? Приложите строчку кода, в которой это указано.
-    * > [Строка 87 : ConflictsWith: string name_prefix](/terraform-provider-aws/internal/service/sqs/queue.go)
+    * > [Строка 87 : ConflictsWith: string name_prefix](https://github.com/hashicorp/terraform-provider-aws/internal/service/sqs/queue.go)
     * Какая максимальная длина имени? 
-    * > [Строка 427](/terraform-provider-aws/internal/service/sqs/queue.go)
+    * > [Строка 427](https://github.com/hashicorp/terraform-provider-aws/internal/service/sqs/queue.go)
     * Какому регулярному выражению должно подчиняться имя? 
-    * > Регулярное вырожение: `^[a-zA-Z0-9_-]{1,80}$`
+    * > Регулярное выражение: `^[a-zA-Z0-9_-]{1,80}$`
     
 ## Задача 2. (Не обязательно) 
 В рамках вебинара и презентации мы разобрали как создать свой собственный провайдер на примере кофемашины. 
