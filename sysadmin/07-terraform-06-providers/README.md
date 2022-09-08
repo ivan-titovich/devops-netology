@@ -34,7 +34,8 @@
 [https://learn.hashicorp.com/collections/terraform/providers](https://learn.hashicorp.com/collections/terraform/providers).
 
 1. Проделайте все шаги создания провайдера.
+> Сделал.
 2. В виде результата приложение ссылку на исходный код.
-> [Директория с исходным кодом и скомпилированным файлом]()
+> [Директория с исходным кодом и скомпилированным файлом](https://github.com/ivan-titovich/devops-netology/tree/main/sysadmin/07-terraform-06-providers/hashicups)
 3. Попробуйте скомпилировать провайдер, если получится то приложите снимок экрана с командой и результатом компиляции.
-> [Screenshot](/src/Screenshot1.png)
+> ![Скриншот](src/Screenshot1.png)
