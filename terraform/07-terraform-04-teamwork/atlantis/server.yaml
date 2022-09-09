@@ -1,0 +1,13 @@
+# server.yaml
+repos:
+- id: https://github.com/ivan-titovich/devops-netology
+  apply_requirements: [approved]
+  allow_custom_workflows: true
+
+workflows:
+  default:
+    plan:
+      steps:
+        - init
+        - plan:
+          extra_args: ["-lock", "false"]

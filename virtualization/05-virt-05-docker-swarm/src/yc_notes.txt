@@ -1,0 +1,35 @@
+create net and subnet:
+yc vpc network create --name net --labels my-label=netology --description "my first network via yc"
+yc vpc subnet create --name my-subnet-a --zone ru-central1-a --range 10.1.2.0/24 --network-name net --description "my first subnet via yc"
+
+delete net and subnet:
+yc vpc subnet list
+yc vpc subnet delete --id e9b3g08eo82pb77njteu
+yc vpc network list
+yc vpc network delete --id enprmivr4h1uruk57ee2
+
+
+
+
+external_ip_address_node01 = "51.250.3.253"
+external_ip_address_node02 = "51.250.90.251"
+external_ip_address_node03 = "51.250.91.124"
+external_ip_address_node04 = "51.250.13.125"
+external_ip_address_node05 = "51.250.64.175"
+external_ip_address_node06 = "51.250.64.245"
+internal_ip_address_node01 = "192.168.101.11"
+internal_ip_address_node02 = "192.168.101.12"
+internal_ip_address_node03 = "192.168.101.13"
+internal_ip_address_node04 = "192.168.101.14"
+internal_ip_address_node05 = "192.168.101.15"
+internal_ip_address_node06 = "192.168.101.16"
+
+
+Swarm updated.
+To unlock a swarm manager after it restarts, run the `docker swarm unlock`
+command and provide the following key:
+
+    SWMKEY-1-m7GKQpnuAH9ml2jzsGKVDgXypMSFf0MYjOQXAJx2XaU
+
+Please remember to store this key in a password manager, since without it you
+will not be able to restart the manager.

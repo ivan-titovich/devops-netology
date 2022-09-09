@@ -1,0 +1,84 @@
+CREATE USER test_admin_user
+CREATE USER test_simple_user
+CREATE DATABASE test_db
+
+CREATE TABLE clients (
+    id serial PRIMARY KEY,
+    firstname varchar,
+    country varchar ,
+    "order" integer,
+    FOREIGN KEY("order")
+    REFERENCES orders(id)
+);
+
+
+CREATE TABLE orders (
+    id serial PRIMARY KEY,
+    name varchar,
+    price integer
+);
+
+GRANT ALL ON TABLE clients,orders TO test_admin_user;
+GRANT ALL ON TABLE clients TO test_admin_user;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE clients,orders TO test_simple_user;
+
+
+SELECT datname FROM pg_database;
+
+
+
+SELECT
+   table_name,
+   column_name,
+   data_type
+FROM
+   information_schema.COLUMNS
+ WHERE
+ 	table_name = 'orders'
+ 	OR table_name = 'clients';
+
+
+
+ SELECT grantee, table_name, privilege_type
+    FROM information_schema.role_table_grants
+    WHERE
+        table_schema = quote_ident('public')
+        AND (table_name = 'orders' OR table_name = 'clients')
+        AND (grantee = 'test_admin_user' OR grantee = 'test_simple_user')
+
+INSERT INTO orders(name, price) VALUES('Шоколад', '10');
+INSERT INTO orders(name, price) VALUES('Принтер', '3000');
+INSERT INTO orders(name, price) VALUES('Книга', '500');
+INSERT INTO orders(name, price) VALUES('Монитор', '7000');
+INSERT INTO orders(name, price) VALUES('Гитара', '4000');
+
+
+INSERT INTO clients(firstname, country) VALUES('Иванов Иван Иванович', 'USA');
+INSERT INTO clients(firstname, country) VALUES('Петров Петр Петрович', 'Canada');
+INSERT INTO clients(firstname, country) VALUES('Иоганн Себастьян Бах', 'Japan');
+INSERT INTO clients(firstname, country) VALUES('Ронни Джеймс Дио', 'Russia');
+INSERT INTO clients(firstname, country) VALUES('Ritchie Blackmore', 'Russia');
+
+
+  SELECT count(*) FROM orders;
+  SELECT count(*) FROM clietns;
+
+
+
+UPDATE clients
+SET "order" = (SELECT id FROM orders WHERE name = 'Книга')
+WHERE firstname = 'Иванов Иван Иванович';
+
+UPDATE clients
+SET "order" = (SELECT id FROM orders WHERE name = 'Монитор')
+WHERE firstname = 'Петров Петр Петрович';
+
+UPDATE clients
+SET "order" = (SELECT id FROM orders WHERE name = 'Гитара')
+WHERE firstname = 'Иоганн Себастьян Бах';
+
+
+SELECT firstname FROM clients WHERE "order" > 0 ;
+
+
+
