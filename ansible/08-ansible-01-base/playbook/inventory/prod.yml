@@ -6,4 +6,4 @@
   deb:
     hosts:
       ubuntu:
-        ansible_connection: docker
+        ansible_connection: local
