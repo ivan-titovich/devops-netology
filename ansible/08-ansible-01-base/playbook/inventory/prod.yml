@@ -2,8 +2,14 @@
   el:
     hosts:
       centos7:
-        ansible_connection: docker
+        ansible_connection: local
   deb:
     hosts:
       ubuntu:
-        ansible_connection: local
+        ansible_connection: docker
+        hosts:
+          - 172.17.0.2
+        ansible_user: "root"
+        ansible_ssh_pass: "root"
+        ansible_password: "root"
+

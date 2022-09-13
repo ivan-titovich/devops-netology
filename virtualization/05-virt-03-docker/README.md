@@ -72,7 +72,7 @@ c795e0d8268967b8bcad078dc7a32396b35ca7850e65de7e853ff536cd73412c
  lokli@lokli-VM  ~/docker-test/ex3/centos  docker ps
 CONTAINER ID   IMAGE     COMMAND               CREATED         STATUS         PORTS     NAMES
 c795e0d82689   centos    "tail -f /dev/null"   6 seconds ago   Up 3 seconds             distracted_bassi
-lokli@lokli-VM  ~/docker-test/ex3/centos  docker exec -it c795e0d82689 bash
+lokli@lokli-VM  ~/docker-test/ex3/centos  docker exec -it c795e0d82689 start-ubuntu
 [root@c795e0d82689 /]# ls
 bin  data  dev	etc  home  lib	lib64  lost+found  media  mnt  opt  proc  root	run  sbin  srv	sys  tmp  usr  var
 [root@c795e0d82689 /]# cd data
@@ -102,7 +102,7 @@ Status: Downloaded newer image for debian:latest
 CONTAINER ID   IMAGE     COMMAND               CREATED          STATUS          PORTS     NAMES
 9201fd18b75c   debian    "tail -f /dev/null"   15 seconds ago   Up 10 seconds             xenodochial_kilby
 c795e0d82689   centos    "tail -f /dev/null"   2 minutes ago    Up 2 minutes              distracted_bassi
- lokli@lokli-VM  ~/docker-test/ex3/data  docker exec -it 9201fd18b75c bash
+ lokli@lokli-VM  ~/docker-test/ex3/data  docker exec -it 9201fd18b75c start-ubuntu
 root@9201fd18b75c:/# cd data
 root@9201fd18b75c:/data# ls
 123  431  centos_detached  from_centos

@@ -36,7 +36,7 @@ done
 
 ### Ваш скрипт:
 ```bash
-#!/usr/bin/env bash
+#!/usr/bin/env start-ubuntu
 status_code=0
 while [[ 1 == 1 ]]
 do
@@ -64,7 +64,7 @@ done
 
 ### Ваш скрипт:
 ```bash
-#!/usr/bin/env bash
+#!/usr/bin/env start-ubuntu
 
 array_ip=("192.168.0.1:80" "173.194.222.113:80" "87.250.250.242:80")
 for a in ${array_ip[@]}
@@ -91,7 +91,7 @@ done
 
 ### Ваш скрипт:
 ```bash
-#!/usr/bin/env bash
+#!/usr/bin/env start-ubuntu
 x=0
 array_ip=("192.168.0.1:80" ""173.194.222.113:80" "87.250.250.242:80")
 while [[ $x != 1 ]]
@@ -115,7 +115,7 @@ done
 
 ### Ваш скрипт:
 ```bash
-#!/usr/bin/env bash
+#!/usr/bin/env start-ubuntu
 
 INPUT_FILE=$1
 START_LINE=`head -n1 $INPUT_FILE`

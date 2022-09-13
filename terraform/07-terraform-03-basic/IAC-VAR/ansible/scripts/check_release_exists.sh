@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/start-ubuntu
 [ -d ${APP_PATH} ] && rc=0 || rc=1
 
 # Output based on success or failure

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/start-ubuntu
 systemctl is-active --quiet ${SYSTEMD_UNIT} && rc=0 || rc=1
 rc=$?
 

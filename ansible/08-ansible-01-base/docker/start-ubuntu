@@ -1,0 +1,42 @@
+#!/bin/bash
+# a script that create a docker container
+# HOWTO: bash ./script.sh ~/your/local/path/folder
+MYNAME=$1
+
+#echo "USAGE: script.sh [local_path]"
+
+# check input parameters
+# if [ -z "$MYPATH" ]; then
+#     echo "Error: local path is not set"
+#     exit
+# fi
+
+# create the path
+#echo "Insert the path of your volume: $MYPATH"
+
+# pull the image
+#docker pull pycontribs/ubuntu
+
+# create a volume
+#docker volume create --name ubuntu-test
+docker run --name $MYNAME -p 22:22 -d ubuntu-ssh4 bin/bash -c 'service ssh start | sleep 6000'
+
+# connect the volume to the container for can copy the project folder
+#docker run --name $MYNAME \
+#	#-v ubuntu-test:/code \
+#	#-p 8001:8000 \
+#	-p 22:22 \
+#	-d pycontribs/ubuntu \
+#	-rm sleep 600
+
+# copy project folders in your host
+#docker cp ubuntu-test:/code $MYPATH
+
+# remove the container
+#docker rm -f ubuntu-test
+
+# recreate the container with the volume that point to our local folder where before we have copy the folders of the project.
+#docker run --name ubuntu-test \
+#	-v $MYPATH:/code \
+#	-p 8001:8000 \
+#	-d pierangelo1982/django

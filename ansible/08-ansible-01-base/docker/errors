@@ -1,0 +1,26 @@
+TASK [Gathering Facts] ********************************************************************************************************************************************************************************************************
+task path: /home/lokli/devops-netology/devops-netology/ansible/08-ansible-01-base/playbook/site.yml:2
+<centos7> ESTABLISH LOCAL CONNECTION FOR USER: root
+<centos7> EXEC /bin/sh -c 'echo ~root && sleep 0'
+redirecting (type: connection) ansible.builtin.docker to community.docker.docker
+<centos7> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /root/.ansible/tmp `"&& mkdir "` echo /root/.ansible/tmp/ansible-tmp-1663103022.571959-8131-52626571537456 `" && echo ansible-tmp-1663103022.571959-8131-52626571537456="` echo /root/.ansible/tmp/ansible-tmp-1663103022.571959-8131-52626571537456 `" ) && sleep 0'
+<ubuntu> ESTABLISH DOCKER CONNECTION FOR USER: root
+<ubuntu> EXEC ['/usr/bin/docker', b'exec', b'-u', 'root', b'-i', 'ubuntu', '/bin/sh', '-c', "/bin/sh -c 'echo ~root && sleep 0'"]
+<ubuntu> EXEC ['/usr/bin/docker', b'exec', b'-u', 'root', b'-i', 'ubuntu', '/bin/sh', '-c', '/bin/sh -c \'echo "`pwd`" && sleep 0\'']
+<ubuntu> EXEC ['/usr/bin/docker', b'exec', b'-u', 'root', b'-i', 'ubuntu', '/bin/sh', '-c', '/bin/sh -c \'( umask 77 && mkdir -p "` echo ~/.ansible/tmp `"&& mkdir "` echo ~/.ansible/tmp/ansible-tmp-1663103022.7959168-8132-205143011240572 `" && echo ansible-tmp-1663103022.7959168-8132-205143011240572="` echo ~/.ansible/tmp/ansible-tmp-1663103022.7959168-8132-205143011240572 `" ) && sleep 0\'']
+fatal: [ubuntu]: UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to create temporary directory. In some cases, you may have been able to authenticate and did not have permissions on the target directory. Consider changing the remote tmp path in ansible.cfg to a path rooted in \"/tmp\", for more error information use -vvv. Failed command was: ( umask 77 && mkdir -p \"` echo ~/.ansible/tmp `\"&& mkdir \"` echo ~/.ansible/tmp/ansible-tmp-1663103022.7959168-8132-205143011240572 `\" && echo ansible-tmp-1663103022.7959168-8132-205143011240572=\"` echo ~/.ansible/tmp/ansible-tmp-1663103022.7959168-8132-205143011240572 `\" ), exited with result 1",
+    "unreachable": true
+}
+<centos7> Attempting python interpreter discovery
+<centos7> EXEC /bin/sh -c 'echo PLATFORM; uname; echo FOUND; command -v '"'"'python3.10'"'"'; command -v '"'"'python3.9'"'"'; command -v '"'"'python3.8'"'"'; command -v '"'"'python3.7'"'"'; command -v '"'"'python3.6'"'"'; command -v '"'"'python3.5'"'"'; command -v '"'"'/usr/bin/python3'"'"'; command -v '"'"'/usr/libexec/platform-python'"'"'; command -v '"'"'python2.7'"'"'; command -v '"'"'/usr/bin/python'"'"'; command -v '"'"'python'"'"'; echo ENDFOUND && sleep 0'
+<centos7> EXEC /bin/sh -c '/usr/bin/python3.8 && sleep 0'
+Using module file /root/.local/lib/python3.8/site-packages/ansible/modules/setup.py
+<centos7> PUT /root/.ansible/tmp/ansible-local-8126odqqievi/tmpbmaq_72c TO /root/.ansible/tmp/ansible-tmp-1663103022.571959-8131-52626571537456/AnsiballZ_setup.py
+<centos7> EXEC /bin/sh -c 'chmod u+x /root/.ansible/tmp/ansible-tmp-1663103022.571959-8131-52626571537456/ /root/.ansible/tmp/ansible-tmp-1663103022.571959-8131-52626571537456/AnsiballZ_setup.py && sleep 0'
+<centos7> EXEC /bin/sh -c '/usr/bin/python3 /root/.ansible/tmp/ansible-tmp-1663103022.571959-8131-52626571537456/AnsiballZ_setup.py && sleep 0'
+<centos7> EXEC /bin/sh -c 'rm -f -r /root/.ansible/tmp/ansible-tmp-1663103022.571959-8131-52626571537456/ > /dev/null 2>&1 && sleep 0'
+
+
+

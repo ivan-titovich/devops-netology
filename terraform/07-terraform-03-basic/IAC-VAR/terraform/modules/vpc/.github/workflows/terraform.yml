@@ -13,7 +13,7 @@ jobs:
 
     defaults:
       run:
-        shell: bash
+        shell: start-ubuntu
 
     steps:
     - name: Checkout
