@@ -118,7 +118,7 @@ ok: [localhost] => {
 }
 ```
 4. Добавьте новую группу хостов `fedora`, самостоятельно придумайте для неё переменную. В качестве образа можно использовать [этот](https://hub.docker.com/r/pycontribs/fedora).
-> К сожалению не удалось запустить тестовую среду на docker - все удалось победить ошибку:
+> К сожалению не удалось запустить тестовую среду на docker - не удалось победить ошибку:
 ``` 
 <ubuntu> ESTABLISH DOCKER CONNECTION FOR USER: root
 <ubuntu> EXEC ['/usr/bin/docker', b'exec', b'-u', 'root', b'-i', 'ubuntu', '/bin/sh', '-c', "/bin/sh -c 'echo ~root && sleep 0'"]
@@ -134,12 +134,14 @@ fatal: [ubuntu]: UNREACHABLE! => {
 > 
 > Не подскажите куда смотреть? 
 > 
-> [dockerfile ubuntu](/docker/ubuntu/Dockepfile)
+> [dockerfile ubuntu](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/ubuntu/Dockerfile)
 > 
 5. Напишите скрипт на bash: автоматизируйте поднятие необходимых контейнеров, запуск ansible-playbook и остановку контейнеров.
-> [create ubuntu image](/docker/create-ubuntu-image.sh)
-> [start ubuntu](/docker/start-ubuntu.sh)
-> [stop ubuntu](/docker/stop-ubuntu.sh)
+> [create ubuntu image](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/create-ubuntu-image.sh)
+> 
+> [start ubuntu](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/start-ubuntu.sh)
+> 
+> [stop ubuntu](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/stop-ubuntu.sh)
 > 
 6. Все изменения должны быть зафиксированы и отправлены в вашей личный репозиторий.
 
