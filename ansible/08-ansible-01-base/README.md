@@ -1,4 +1,4 @@
-# Домашнее задание к занятию "08.01 Введение в Ansible"
+# Домашняя работа к занятию "08.01 Введение в Ansible"
 
 ## Подготовка к выполнению
 1. Установите ansible версии 2.10 или выше.
@@ -118,24 +118,50 @@ ok: [localhost] => {
 }
 ```
 4. Добавьте новую группу хостов `fedora`, самостоятельно придумайте для неё переменную. В качестве образа можно использовать [этот](https://hub.docker.com/r/pycontribs/fedora).
-> К сожалению не удалось запустить тестовую среду на docker - не удалось победить ошибку:
+> Сделано: 
 ``` 
-<ubuntu> ESTABLISH DOCKER CONNECTION FOR USER: root
-<ubuntu> EXEC ['/usr/bin/docker', b'exec', b'-u', 'root', b'-i', 'ubuntu', '/bin/sh', '-c', "/bin/sh -c 'echo ~root && sleep 0'"]
-<ubuntu> EXEC ['/usr/bin/docker', b'exec', b'-u', 'root', b'-i', 'ubuntu', '/bin/sh', '-c', '/bin/sh -c \'echo "`pwd`" && sleep 0\'']
-<ubuntu> EXEC ['/usr/bin/docker', b'exec', b'-u', 'root', b'-i', 'ubuntu', '/bin/sh', '-c', '/bin/sh -c \'( umask 77 && mkdir -p "` echo ~/.ansible/tmp `"&& mkdir "` echo ~/.ansible/tmp/ansible-tmp-1663103022.7959168-8132-205143011240572 `" && echo ansible-tmp-1663103022.7959168-8132-205143011240572="` echo ~/.ansible/tmp/ansible-tmp-1663103022.7959168-8132-205143011240572 `" ) && sleep 0\'']
-fatal: [ubuntu]: UNREACHABLE! => {
-    "changed": false,
-    "msg": "Failed to create temporary directory. In some cases, you may have been able to authenticate and did not have permissions on the target directory. Consider changing the remote tmp path in ansible.cfg to a path rooted in \"/tmp\", for more error information use -vvv. Failed command was: ( umask 77 && mkdir -p \"` echo ~/.ansible/tmp `\"&& mkdir \"` echo ~/.ansible/tmp/ansible-tmp-1663103022.7959168-8132-205143011240572 `\" && echo ansible-tmp-1663103022.7959168-8132-205143011240572=\"` echo ~/.ansible/tmp/ansible-tmp-1663103022.7959168-8132-205143011240572 `\" ), exited with result 1",
-    "unreachable": true
+
+TASK [Gathering Facts] ******************************************************************************
+ok: [localhost]
+ok: [fedora]
+ok: [ub1-ssh]
+ok: [centos7]
+
+TASK [Print OS] *************************************************************************************
+ok: [centos7] => {
+    "msg": "CentOS"
 }
+ok: [fedora] => {
+    "msg": "Fedora"
+}
+ok: [ub1-ssh] => {
+    "msg": "Ubuntu"
+}
+ok: [localhost] => {
+    "msg": "Ubuntu"
+}
+
+TASK [Print fact] ***********************************************************************************
+ok: [centos7] => {
+    "msg": "el default fact"
+}
+ok: [fedora] => {
+    "msg": "fed default fact"
+}
+ok: [ub1-ssh] => {
+    "msg": "deb default fact"
+}
+ok: [localhost] => {
+    "msg": "PaSSw0rd"
+}
+
+PLAY RECAP ******************************************************************************************
+centos7                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+fedora                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+ub1-ssh                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
 ```
-> Если под рутом в контейнер зайти можно по SSH, выполняется строка ```umask 77 && mkdir -p "` echo ~/.ansible/tmp `"&& mkdir "` echo ~/.ansible/tmp/ansible-tmp-1663103022.7959168-8132-205143011240572 `" && echo ansible-tmp-1663103022.7959168-8132-205143011240572="` echo ~/.ansible/tmp/ansible-tmp-1663103022.7959168-8132-205143011240572 `" ```, и даже пинг отвечает понгом, а Ansible пишет "недоступен". 
-> 
-> Не подскажите куда смотреть? 
-> 
-> [dockerfile ubuntu](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/ubuntu/Dockerfile)
-> 
 5. Напишите скрипт на bash: автоматизируйте поднятие необходимых контейнеров, запуск ansible-playbook и остановку контейнеров.
 > [create ubuntu image](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/create-ubuntu-image.sh)
 > 
@@ -143,12 +169,18 @@ fatal: [ubuntu]: UNREACHABLE! => {
 > 
 > [stop ubuntu](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/stop-ubuntu.sh)
 > 
+> [create centos image](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/create-centos-image.sh)
+> 
+> [start centos](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/start-centos.sh)
+> 
+> [stop centos](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/stop-centos.sh)
+> 
+> [create fedora image](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/create-fedora-image.sh)
+> 
+> [start fedora](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/start-fedora.sh)
+> 
+> [stop fedora](https://github.com/ivan-titovich/devops-netology/blob/main/ansible/08-ansible-01-base/docker/stop-fedora.sh)
+> 
 6. Все изменения должны быть зафиксированы и отправлены в вашей личный репозиторий.
+> [Репозиторий](https://github.com/ivan-titovich/devops-netology/tree/main/ansible/08-ansible-01-base)
 
----
-
-### Как оформить ДЗ?
-
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
-
----

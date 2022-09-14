@@ -2,19 +2,30 @@
   el:
     hosts:
       centos7:
-        ansible_connection: local
+        ansible_connection: docker
+        ansible_user: "root"
+        ansible_ssh_pass: "root"
+        ansible_password: "root"
+  fed:
+    hosts:
+      fedora:
+        ansible_connection: docker
+        ansible_user: "root"
+        ansible_ssh_pass: "root"
+        ansible_password: "root"
   deb:
     hosts:
-      ubuntu:
-        ansible_connection: local
+      ub1-ssh:
+        ansible_connection: docker
+#        hosts:
+#          - 172.17.0.2
+        ansible_user: "root"
+        ansible_ssh_pass: "root"
+        ansible_password: "root"
   local:
     hosts:
       localhost:
         ansible_connection: local
 
-#        hosts:
-#          - 172.17.0.2
-#        ansible_user: "root"
-#        ansible_ssh_pass: "root"
-#        ansible_password: "root"
+
 

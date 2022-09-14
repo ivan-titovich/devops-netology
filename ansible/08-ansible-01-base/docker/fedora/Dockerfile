@@ -1,7 +1,9 @@
-FROM pycontribs/centos:7
+FROM pycontribs/fedora
+
+RUN dnf -y install openssh-server httpd supervisor
 
 #RUN yum update &&
-RUN yum install  openssh-server sudo -y
+#RUN yum install  openssh-server sudo -y
 
 RUN  echo 'root:root' | chpasswd
 
