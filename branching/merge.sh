@@ -1,4 +1,4 @@
-#!/bin/start-ubuntu
+#!/bin/start-ubuntu.sh
 # display command line options
 
 count=1

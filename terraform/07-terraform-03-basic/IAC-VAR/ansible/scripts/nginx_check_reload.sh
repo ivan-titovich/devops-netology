@@ -1,4 +1,4 @@
-#!/bin/start-ubuntu
+#!/bin/start-ubuntu.sh
 nginx -t
 rc=$?
 
