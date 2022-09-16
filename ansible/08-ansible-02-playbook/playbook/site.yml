@@ -34,3 +34,59 @@
       register: create_db
       failed_when: create_db.rc != 0 and create_db.rc !=82
       changed_when: create_db.rc == 0
+
+
+- name: Install Vector
+  hosts: vector
+  handlers:
+    - name: restart vector
+      service:
+        state: restarted
+        daemon_reload: yes
+        name: vector
+  tasks:
+    - name: Get latest version
+      uri:
+        url: https://s3.amazonaws.com/packages.timber.io/?prefix=vector/latest&max-keys=1
+        return_content: true
+      register: bucket_content
+      when: vector_version == "latest"
+
+    - name: Set latest version
+      set_fact:
+        vector_version: "{{ bucket_content.content | regex_replace('.*\\n.*<Key>[^-]+-(?P<version>[\\d\\.]+)-.*','\\g<version>') }}"
+      when: vector_version == "latest"
+
+    - name: Install Vector
+      yum:
+        name: "https://packages.timber.io/vector/{{ version }}/vector-{{ package_version }}.{{ arch }}.rpm"
+        state: present
+        disable_gpg_check: yes # package is not signed
+      notify:
+        - restart vector
+      vars:
+        version: "{{ vector_version }}"
+        package_version: "{{ vector_version is match('latest') | ternary(vector_version, vector_version ~ '-1') }}"
+        arch: "{{ vector_centos_arch[ansible_machine] }}"
+      when: ansible_os_family == 'Centos'
+
+    - name: Copy config
+      template:
+        src: "{{ vector_template }}"
+        dest: "{{ vector_config_file }}"
+        mode: 0644
+      notify: restart vector
+
+    - name: Add vector user to systemd-journal group
+      user:
+        name: vector
+        groups: systemd-journal
+        append: yes
+      when: add_vector_journal_group | default(no)
+      notify: restart vector
+
+    - name: Start Vector
+      service:
+        state: started
+        enabled: yes
+        name: vector
