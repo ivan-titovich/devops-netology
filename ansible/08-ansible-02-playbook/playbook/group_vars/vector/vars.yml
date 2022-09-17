@@ -1,0 +1,5 @@
+---
+package_version: "latest"
+#vector_version: "latest"
+arch:
+  - x86_64

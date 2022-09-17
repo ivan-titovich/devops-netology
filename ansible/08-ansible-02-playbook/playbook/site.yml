@@ -28,7 +28,7 @@
           - clickhouse-server-{{ clickhouse_version }}.rpm
       notify: Start clickhouse service
     - name: Flush handlers
-      meta: flush_handlers
+      ansible.builtin.meta: flush_handlers
     - name: Create database
       ansible.builtin.command: "clickhouse-client -q 'create database logs;'"
       register: create_db
@@ -44,18 +44,18 @@
         state: restarted
         daemon_reload: yes
         name: vector
-  tasks:
-    - name: Get latest version
-      uri:
-        url: https://s3.amazonaws.com/packages.timber.io/?prefix=vector/latest&max-keys=1
-        return_content: true
-      register: bucket_content
-      when: vector_version == "latest"
+#  tasks:
+#    - name: Get latest version
+#      uri:
+#        url: https://s3.amazonaws.com/packages.timber.io/?prefix=vector/latest&max-keys=1
+#        return_content: true
+#      register: bucket_content
+#      when: vector_version == "latest"
 
-    - name: Set latest version
-      set_fact:
-        vector_version: "{{ bucket_content.content | regex_replace('.*\\n.*<Key>[^-]+-(?P<version>[\\d\\.]+)-.*','\\g<version>') }}"
-      when: vector_version == "latest"
+#    - name: Set latest version
+#      set_fact:
+#        vector_version: "{{ bucket_content.content | regex_replace('.*\\n.*<Key>[^-]+-(?P<version>[\\d\\.]+)-.*','\\g<version>') }}"
+#      when: vector_version == "latest"
 
     - name: Install Vector
       yum:
