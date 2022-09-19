@@ -59,14 +59,14 @@
 
     - name: Install Vector
       yum:
-        name: "https://packages.timber.io/vector/{{ version }}/vector-{{ package_version }}.{{ arch }}.rpm"
+        name: "https://packages.timber.io/vector/{{ package_version }}/vector-{{ package_version }}-1.{{ arch }}.rpm"
         state: present
         disable_gpg_check: yes # package is not signed
       notify:
         - restart vector
       vars:
-        version: "{{ vector_version }}"
-        package_version: "{{ vector_version is match('latest') | ternary(vector_version, vector_version ~ '-1') }}"
+        version: "{{ package_version }}"
+        package_version: "{{ package_version }}"
         arch: "{{ vector_centos_arch[ansible_machine] }}"
       when: ansible_os_family == 'Centos'
 
@@ -76,6 +76,12 @@
         dest: "{{ vector_config_file }}"
         mode: 0644
       notify: restart vector
+
+    - name: Use the right config_file
+      lineinfile:
+        path: /etc/default/vector
+        line: "VECTOR_CONFIG={{ vector_config_file }}"
+        state: present
 
     - name: Add vector user to systemd-journal group
       user:

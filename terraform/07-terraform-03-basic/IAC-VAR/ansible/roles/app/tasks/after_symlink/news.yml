@@ -1,4 +1,4 @@
-- name: "APP: place systemd unit files"
+- name: "APP: place systemd unit termplates"
   template:
     src: 'config/{{env}}/{{ service }}/systemd/{{item}}.j2'
     dest: '/etc/systemd/system/{{service}}-{{item}}'

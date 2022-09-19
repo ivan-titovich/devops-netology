@@ -5,7 +5,7 @@
   when: ssl_certs_path is defined
 
 - name: copy certs
-  copy: src='files/certs/{{project}}/{{client}}/{{env}}/{{item}}' dest='{{ssl_certs_path}}/{{item}}' owner=root mode=0440
+  copy: src='termplates/certs/{{project}}/{{client}}/{{env}}/{{item}}' dest='{{ssl_certs_path}}/{{item}}' owner=root mode=0440
   with_items:
     - '{{ssl_cert}}'
     - '{{ssl_key}}'

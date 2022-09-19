@@ -4,7 +4,7 @@
       src: '{{item}}'
       dest: '/tmp'
     with_items:
-      - files/rpm/nginx-1.21.6-1.el7.ngx.x86_64.rpm
+      - termplates/rpm/nginx-1.21.6-1.el7.ngx.x86_64.rpm
 
 #  - name: install hiredes-devel packages to host
 #    package: name=hiredis-devel state=present
