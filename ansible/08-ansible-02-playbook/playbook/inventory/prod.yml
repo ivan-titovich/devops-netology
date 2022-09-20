@@ -2,21 +2,15 @@
 clickhouse:
   hosts:
     clickhouse-01:
-      ansible_host: 10.0.3.17
+      ansible_host: 10.0.2.16
       ansible_ssh_user: "vagrant"
-#      ansible_ssh_password: "vagrant"
-
-#    vector-01:
-#      ansible_host: 10.0.3.17
-#      ansible_ssh_user: "root"
-#      ansible_ssh_password: "vagrant"
-
+      ansible_ssh_password: "vagrant"
 
 vector:
   hosts:
     vector-01:
-      ansible_host: 10.0.3.17
+      ansible_host: 10.0.2.16
       ansible_ssh_user: "vagrant"
-#      ansible_ssh_password: "vagrant"
+      ansible_ssh_password: "vagrant"
 
 

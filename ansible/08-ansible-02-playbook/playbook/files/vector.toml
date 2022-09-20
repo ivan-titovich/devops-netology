@@ -1,0 +1,14 @@
+[sources.nginx_logs]
+type = "file"
+include = [ "/var/log/nginx/my_access.log" ]
+read_from = "end"
+
+[transforms.nginx_parser]
+  inputs  = ["nginx_logs"]
+  type    = "regex_parser"
+  regex = '^(?P<host>[w.]+) - (?P<user>[w]+) (?P<bytes_in>[d]+) [(?P<timestamp>.*)] "(?P<method>[w]+) (?P<path>.*)" (?P<status>[d]+) (?P<bytes_out>[d]+)$'
+
+[sinks.print]
+  inputs = ["nginx_parser"]
+  type   = "console"
+  encoding = "ndjson"
