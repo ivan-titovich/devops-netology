@@ -51,7 +51,7 @@
       failed_when: create_db.rc != 0 and create_db.rc != 82
       changed_when: create_db.rc == 0
 
-- name: Install nginx
+- name: Install nginx for vector
   hosts: vector
   handlers:
     - name: Restart nginx
@@ -102,7 +102,7 @@
         src: "{{ vector_template }}"
         dest: "{{ vector_config_file }}"
         mode: 0644
-      notify: restart vector
+      notify: Restart vector
 
     - name: Use the right config_file
       become: true
@@ -125,3 +125,68 @@
         state: started
         enabled: yes
         name: vector
+
+
+- name: Install nginx for lighthouse
+  hosts: lighthouse
+  handlers:
+    - name: Restart nginx
+      become: true
+      ansible.builtin.service:
+        state: restarted
+        daemon_reload: yes
+        name: nginx
+  tasks:
+    - name: Install epel-release
+      become: true
+      ansible.builtin.yum:
+        name: epel-release
+        state: present
+
+    - name: Install nginx
+      become: true
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+        disable_gpg_check: yes # package is not signed
+      notify:
+        - Restart nginx
+
+    - name: Install git
+      become: true
+      ansible.builtin.yum:
+        name: git
+        state: present
+        disable_gpg_check: yes
+
+    - name: Create folder for lighthouse
+      become: true
+      ansible.builtin.file:
+        path: /var/www/lighthouse
+#        path: /usr/share/nginx/lighthouse
+        state: directory
+        mode: '0755'
+
+    - name: Copy lighthouse config to nginx
+      become: true
+      ansible.builtin.template:
+        src: "{{ lighthouse_template }}"
+        dest: "{{ lighthouse_config_file }}"
+        mode: 0644
+      notify: Restart nginx
+
+    - name: Install lighthouse
+      become: true
+      ansible.builtin.git:
+        repo: https://github.com/VKCOM/lighthouse
+        dest: /var/www/lighthouse
+        clone: yes
+        update: yes
+      notify:
+        - Restart nginx
+
+
+
+
+
+
