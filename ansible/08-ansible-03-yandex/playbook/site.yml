@@ -1,0 +1,127 @@
+---
+- name: Install Clickhouse
+  hosts: clickhouse
+  handlers:
+    - name: Start clickhouse service
+      become: true
+      ansible.builtin.service:
+        name: clickhouse-server
+        daemon_reload: yes
+        state: restarted
+  tasks:
+    - name: Get clickhouse distribs (server, client, common)
+      block:
+        - name: Get clickhouse distrib
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/rpm/stable/{{ item }}-{{ clickhouse_version }}.noarch.rpm"
+            dest: "./{{ item }}-{{ clickhouse_version }}.rpm"
+            mode: 0644
+          with_items: "{{ clickhouse_packages }}"
+      rescue:
+        - name: Get clickhouse distrib
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm"
+            dest: "./clickhouse-common-static-{{ clickhouse_version }}.rpm"
+            mode: 0644
+    - name: Install clickhouse packages
+      become: true
+      ansible.builtin.yum:
+        name:
+          - clickhouse-common-static-{{ clickhouse_version }}.rpm
+          - clickhouse-client-{{ clickhouse_version }}.rpm
+          - clickhouse-server-{{ clickhouse_version }}.rpm
+      notify:
+        - Start clickhouse service
+
+    - name: Flush handlers
+      meta: flush_handlers
+
+    - name: Ensure clickhouse is running
+      become: true
+      ansible.builtin.service:
+        name: clickhouse-server
+        state: started
+      notify:
+        - Start clickhouse service
+
+    - name: Create database
+      become: true
+      ansible.builtin.command: "clickhouse-client -q 'create database logs;'"
+      register: create_db
+      failed_when: create_db.rc != 0 and create_db.rc != 82
+      changed_when: create_db.rc == 0
+
+- name: Install nginx
+  hosts: vector
+  handlers:
+    - name: Restart nginx
+      become: true
+      ansible.builtin.service:
+        state: restarted
+        daemon_reload: yes
+        name: nginx
+  tasks:
+    - name: Install epel-release
+      become: true
+      ansible.builtin.yum:
+        name: epel-release
+        state: present
+
+    - name: Install nginx
+      become: true
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+        disable_gpg_check: yes # package is not signed
+      notify:
+        - Restart nginx
+
+- name: Install Vector
+  hosts: vector
+  handlers:
+    - name: Restart vector
+      become: true
+      ansible.builtin.service:
+        state: restarted
+        daemon_reload: yes
+        name: vector
+  tasks:
+    - name: Install Vector
+      become: true
+      ansible.builtin.yum:
+        name: "https://packages.timber.io/vector/{{ package_version }}/vector-{{ package_version }}-1.{{ arch }}.rpm"
+        state: present
+        disable_gpg_check: yes # package is not signed
+      notify:
+        - Restart vector
+
+
+    - name: Copy config
+      become: true
+      ansible.builtin.template:
+        src: "{{ vector_template }}"
+        dest: "{{ vector_config_file }}"
+        mode: 0644
+      notify: restart vector
+
+    - name: Use the right config_file
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/default/vector
+        line: "VECTOR_CONFIG={{ vector_config_file }}"
+        state: present
+
+    - name: Add vector user to systemd-journal group
+      become: true
+      ansible.builtin.user:
+        name: vector
+        groups: systemd-journal
+        append: yes
+      notify: Restart vector
+
+    - name: Start Vector
+      become: true
+      ansible.builtin.service:
+        state: started
+        enabled: yes
+        name: vector
