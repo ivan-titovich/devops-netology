@@ -162,8 +162,7 @@
     - name: Create folder for lighthouse
       become: true
       ansible.builtin.file:
-        path: /var/www/lighthouse
-#        path: /usr/share/nginx/lighthouse
+        path: /usr/share/nginx/lighthouse
         state: directory
         mode: '0755'
 
@@ -179,7 +178,7 @@
       become: true
       ansible.builtin.git:
         repo: https://github.com/VKCOM/lighthouse
-        dest: /var/www/lighthouse
+        dest: /usr/share/nginx/lighthouse
         clone: yes
         update: yes
       notify:
