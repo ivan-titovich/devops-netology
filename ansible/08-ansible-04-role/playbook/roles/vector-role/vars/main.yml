@@ -1,0 +1,4 @@
+---
+
+vector_template: "templates/vector.toml"
+vector_config_file: "/etc/vector/vector.toml"

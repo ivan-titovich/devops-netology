@@ -1,3 +1,0 @@
----
-lighthouse_template: "files/lighthouse.conf"
-lighthouse_config_file: "/etc/nginx/conf.d/lighthouse.conf"
