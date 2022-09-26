@@ -4,7 +4,7 @@
 1. Создайте два пустых публичных репозитория в любом своём проекте: vector-role и lighthouse-role.
 > [vector-role](https://github.com/ivan-titovich/vector-role.git)
 >
-> [lighthouse-rol](https://github.com/ivan-titovich/lighthouse-role.git)
+> [lighthouse-role](https://github.com/ivan-titovich/lighthouse-role.git)
 > 
 
 
@@ -38,11 +38,11 @@
 10. Выложите playbook в репозиторий.
 11. В ответ приведите ссылки на оба репозитория с roles и одну ссылку на репозиторий с playbook.
 
-
 ---
+[Vector-role repository](https://github.com/ivan-titovich/vector-role)
 
-### Как оформить ДЗ?
+[Lighthouse-role repository](https://github.com/ivan-titovich/lighthouse-role)
 
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
+[Repository with playbook](https://github.com/ivan-titovich/devops-netology/tree/main/ansible/08-ansible-04-role)
 
 ---
