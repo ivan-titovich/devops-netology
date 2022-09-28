@@ -1,0 +1,16 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: 'Verify vector config file path'
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: 'Vector config-file exist'
+    stat:
+      path: "/etc/vector/vector.toml"
+    register: config_file
+
+  - name: 'Assert config-file by path "/etc/vector/vector.toml"'
+    ansible.builtin.assert:
+      that:
+        - "config_file.stat.exists"

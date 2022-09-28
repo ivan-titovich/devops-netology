@@ -1,54 +1,32 @@
 ---
-- name: Install epel-release
-  become: true
-  ansible.builtin.yum:
-    name: epel-release
-    state: present
+- name: 'Include OS Family Specific Variables. Package manager: {{ ansible_pkg_mgr }}.'
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_os_family | lower }}.yml"
+        - 'empty.yml'
+      paths:
+        - 'vars'
+  tags: [always]
 
-- name: Install nginx
-  become: true
-  ansible.builtin.yum:
-    name: nginx
-    state: present
-    disable_gpg_check: yes # package is not signed
-  notify:
-    - Restart nginx
+- include_tasks: precheck.yml
+  tags: [always]
 
-- name: Install Vector
-  become: true
-  ansible.builtin.yum:
-    name: "https://packages.timber.io/vector/{{ package_version }}/vector-{{ package_version }}-1.{{ arch }}.rpm"
-    state: present
-    disable_gpg_check: yes # package is not signed
-  notify:
-    - Restart vector
+- include_tasks: params.yml
+  tags: [always]
 
-- name: Copy config
-  become: true
-  ansible.builtin.template:
-    src: "{{ vector_template }}"
-    dest: "{{ vector_config_file }}"
-    mode: 0644
-  notify: Restart vector
+- include_tasks:
+    file: "{{ lookup('first_found', params) }}"
+    apply:
+      tags: [ install ]
+  vars:
+    params:
+      files:
+        - "install/{{ ansible_pkg_mgr }}.yml"
+        - 'empty.yml'
+  tags: [ install ]
 
-- name: Use the right config_file
-  become: true
-  ansible.builtin.lineinfile:
-    path: /etc/default/vector
-    line: "VECTOR_CONFIG={{ vector_config_file }}"
-    state: present
 
-- name: Add vector user to systemd-journal group
-  become: true
-  ansible.builtin.user:
-    name: vector
-    groups: systemd-journal
-    append: yes
-  notify: Restart vector
 
-- name: Start Vector
-  become: true
-  ansible.builtin.service:
-    state: started
-    enabled: yes
-    name: vector
+

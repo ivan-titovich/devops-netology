@@ -3,19 +3,11 @@ dependency:
   name: galaxy
 driver:
   name: docker
-  options:
-    D: true
-    vv: true
-lint: |
-  yamllint .
-  ansible-lint
-  flake8
 platforms:
-  - name: ubuntu
+  - name: ubuntu_latest
     image: ubuntu:latest
     dockerfile: ../resources/Dockerfile.j2
-    # pre_build_image: true
-    command: /sbin/init
+    command: /usr/sbin/init
     privileged: true
     capabilities:
       - SYS_ADMIN
@@ -26,7 +18,7 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup
     env:
       ANSIBLE_USER: ansible
-      SUDO_GROUP: sudo
+      SUDO_GROUP: wheel
       DEPLOY_GROUP: deployer
       container: docker
 provisioner:

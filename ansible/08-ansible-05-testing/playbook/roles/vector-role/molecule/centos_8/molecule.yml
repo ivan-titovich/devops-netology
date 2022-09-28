@@ -3,19 +3,10 @@ dependency:
   name: galaxy
 driver:
   name: docker
-  options:
-    D: true
-    vv: true
-
-lint: |
-  yamllint .
-  ansible-lint
-  flake8
 platforms:
   - name: centos_8
-    image: centos:8
-    dockerfile: ../resources/Dockerfile.j2
-    # pre_build_image: true
+    image: quay.io/centos/centos:stream8
+    pre_build_image: true
     command: /usr/sbin/init
     privileged: true
     capabilities:

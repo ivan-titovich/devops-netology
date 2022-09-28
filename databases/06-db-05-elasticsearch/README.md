@@ -47,7 +47,7 @@ xpack.security.enabled: true
   "cluster_uuid" : "OBmTYRD1RFSyKNJFsJbCIg",
   "version" : {
     "number" : "7.17.5",
-    "build_flavor" : "default",
+    "build_flavor" : "centos_8",
     "build_type" : "docker",
     "build_hash" : "8d61b4f7ddf931f219e3745f295ed2bbc50c8e84",
     "build_date" : "2022-06-23T21:57:28.736740635Z",

@@ -1,11 +1,24 @@
 galaxy_info:
+  role_name: vector_role  # if absent directory name hosting role is used instead
+  namespace: ivan_titovich  # if absent, author is used instead
+
+  #  role_name: vector-role
+#  namespace: 'ivantitovich'
   author: Ivan Titovich
   description: This is role for vector.
-  company:
 
-  license: license (GPL-2.0-or-later, MIT, etc)
 
-  min_ansible_version: 2.1
+  license: MIT
+
+  min_ansible_version: 2.8
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Ubuntu
+      versions:
+        - xenial
 
   galaxy_tags: []
 

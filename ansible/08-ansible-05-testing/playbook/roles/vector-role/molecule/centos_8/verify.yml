@@ -5,12 +5,6 @@
   hosts: all
   gather_facts: false
   tasks:
-  - name: "vector.toml exists"
-    stat:
-      path: "/etc/vector/vector.toml"
-    register: file_vector_toml
-
-  - name: Assertion vector.toml
-    assert:
-      that:
-        - file_vector_toml.stat.exists == True
+  - name: Example assertion
+    ansible.builtin.assert:
+      that: true

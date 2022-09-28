@@ -4,4 +4,4 @@
   tasks:
     - name: "Include ansible-clickhouse"
       include_role:
-        name: "ansible-clickhouse"
+        name: "clickhouse"
