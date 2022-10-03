@@ -1,6 +1,7 @@
 ---
 - name: Restart nginx
   become: true
+#  become_method: su
   ansible.builtin.service:
     state: restarted
     daemon_reload: yes

@@ -1,22 +1,22 @@
 ---
-- name: Install epel-release
-  become: true
-  become_method: su
-  ansible.builtin.yum:
-    name: epel-release
-    state: present
-  tags: [install]
-
-- name: Install nginx
-  become: true
-  become_method: su
-  ansible.builtin.yum:
-    name: nginx
-    state: present
-    disable_gpg_check: yes # package is not signed
-  notify:
-    - Restart nginx
-  tags: [install]
+#- name: Install epel-release
+#  become: true
+#  become_method: su
+#  ansible.builtin.yum:
+#    name: epel-release
+#    state: present
+#  tags: [install]
+#
+#- name: Install nginx
+#  become: true
+#  become_method: su
+#  ansible.builtin.yum:
+#    name: nginx
+#    state: present
+#    disable_gpg_check: yes # package is not signed
+#  notify:
+#    - Restart nginx
+#  tags: [install]
 
 - name: Install Vector
   become: true

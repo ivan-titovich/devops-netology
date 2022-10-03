@@ -1,14 +1,23 @@
 [sources.nginx_logs]
 type = "file"
-include = [ "/var/log/nginx/my_access.log" ]
+include = [ "/var/log/nginx/access.log" ]
 read_from = "end"
 
 [transforms.nginx_parser]
   inputs  = ["nginx_logs"]
   type    = "regex_parser"
-  regex = '^(?P<host>[w.]+) - (?P<user>[w]+) (?P<bytes_in>[d]+) [(?P<timestamp>.*)] "(?P<method>[w]+) (?P<path>.*)" (?P<status>[d]+) (?P<bytes_out>[d]+)$'
+  regex = '^(?P<host>[\w\.]+) - (?P<user>[\w]+) (?P<bytes_in>[\d]+) \[(?P<timestamp>.*)\] "(?P<method>[\w]+) (?P<path>.*)" (?P<status>[\d]+) (?P<bytes_out>[\d]+)$'
 
-[sinks.print]
-  inputs = ["nginx_parser"]
-  type   = "console"
-  encoding = "ndjson"
+
+#[sinks.print]
+#  inputs = ["nginx_parser"]
+#  type   = "console"
+#  encoding = "ndjson"
+
+[sinks.clickhouse_sink]
+#type = "clickhouse"
+inputs = [ "nginx_parser" ]
+database = "nginxlogs"
+endpoint = "http://localhost:8123"
+table = "logs"
+compression = "gzip"

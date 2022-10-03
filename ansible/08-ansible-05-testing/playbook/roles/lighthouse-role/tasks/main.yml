@@ -2,12 +2,14 @@
 
 - name: Install epel-release
   become: true
+#  become_method: su
   ansible.builtin.yum:
     name: epel-release
     state: present
 
 - name: Install nginx
   become: true
+#  become_method: su
   ansible.builtin.yum:
     name: nginx
     state: present
@@ -17,6 +19,7 @@
 
 - name: Install git
   become: true
+#  become_method: su
   ansible.builtin.yum:
     name: git
     state: present
@@ -24,6 +27,7 @@
 
 - name: Create folder for lighthouse
   become: true
+#  become_method: su
   ansible.builtin.file:
     path: /usr/share/nginx/lighthouse
     state: directory
@@ -31,6 +35,7 @@
 
 - name: Copy lighthouse config to nginx
   become: true
+#  become_method: su
   ansible.builtin.template:
     src: "{{ lighthouse_template }}"
     dest: "{{ lighthouse_config_file }}"
@@ -39,6 +44,7 @@
 
 - name: Install lighthouse
   become: true
+#  become_method: su
   ansible.builtin.git:
     repo: https://github.com/VKCOM/lighthouse
     dest: /usr/share/nginx/lighthouse
