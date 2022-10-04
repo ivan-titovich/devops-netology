@@ -48,21 +48,12 @@
     state: present
   tags: [install]
 
-- name: Add vector user to systemd-journal group
-  become: true
-#  become_method: su
-  ansible.builtin.user:
-    name: vector
-    groups: systemd-journal
-    append: yes
-  notify: Restart vector
-  tags: [install]
-
-- name: Start Vector
-  become: true
-#  become_method: su
-  ansible.builtin.service:
-    state: started
-    enabled: yes
-    name: vector
-  tags: [install]
+#- name: Add vector user to systemd-journal group
+#  become: true
+##  become_method: su
+#  ansible.builtin.user:
+#    name: vector
+#    groups: systemd-journal
+#    append: yes
+#  notify: Restart vector
+#  tags: [install]

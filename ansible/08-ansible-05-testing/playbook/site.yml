@@ -4,6 +4,17 @@
   roles:
     - clickhouse
 
+- name: Configure clickhouse
+  hosts: clickhouse
+  tasks:
+    - name: Create DB
+      become: true
+      ansible.builtin.command: clickhouse-client --query "CREATE DATABASE IF NOT EXISTS nginxdb"
+
+    - name: Create table
+      become: true
+      ansible.builtin.command: clickhouse-client --query "CREATE TABLE IF NOT EXISTS  nginxdb.access_logs ( message String ) ENGINE = MergeTree() ORDER BY tuple()"
+
 
 - name: Install Vector
   hosts: vector
