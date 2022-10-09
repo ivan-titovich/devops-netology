@@ -45,4 +45,4 @@
 3. Убедитесь в работоспособности своего стека. Создайте отдельный verify.yml, который будет проверять работоспособность интеграции всех инструментов между ними.
 4. Выложите свои roles в репозитории. В ответ приведите ссылки.
 
-> [Clickhous-vector-lighthouse](https://github.com/ivan-titovich/devops-netology/tree/tox/ansible/08-ansible-05-testing/playbook)
+
