@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include vector-role"
+    - name: "Include vector-role "
       include_role:
         name: "vector-role"

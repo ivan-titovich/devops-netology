@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: false
   tasks:
-  - name: 'Vector config-file exist'
+  - name: 'Vector config-file exist '
     stat:
       path: "/etc/vector/vector.toml"
     register: config_file

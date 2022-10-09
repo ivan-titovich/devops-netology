@@ -6,11 +6,8 @@ driver:
 platforms:
   - name: centos_8_podman
     image: quay.io/centos/centos:stream8
-#    dockerfile: ../resources/Dockerfile.j2
-#    image: quay.io/centos/centos:stream8
     pre_build_image: false
     command: /usr/sbin/init
-#    privileged: true
     capabilities:
       - SYS_ADMIN
     tmpfs:
@@ -30,3 +27,5 @@ provisioner:
     converge: ../resources/playbooks/converge.yml
 verifier:
   name: ansible
+
+

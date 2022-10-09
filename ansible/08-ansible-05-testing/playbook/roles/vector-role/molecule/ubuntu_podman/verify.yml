@@ -1,5 +1,5 @@
 ---
-- name: 'Verify vector config file path'
+- name: 'Verify vector config file path '
   hosts: all
   gather_facts: false
   tasks:
