@@ -1,17 +1,12 @@
-[sources.generate_syslog]
-type = "demo_logs"
-format = "syslog"
-count = 100
+[sources.nginx_logs]
+type = "file"
+include = [ "/var/log/nginx/my_access.log" ]
+read_from = "end"
 
-[transforms.remap_syslog]
-inputs = [ "generate_syslog"]
-type = "remap"
-source = '''
-  structured = parse_syslog!(.message)
-  . = merge(., structured)
-'''
-
-[sinks.emit_syslog]
-inputs = ["remap_syslog"]
-type = "console"
-encoding.codec = "json"
+[sinks.clickhouse]
+type = "clickhouse"
+inputs = ["nginx_logs"]
+endpoint = "http://localhost:8123"
+database = "nginxdb"
+table = "access_logs"
+skip_unknown_fields = true
