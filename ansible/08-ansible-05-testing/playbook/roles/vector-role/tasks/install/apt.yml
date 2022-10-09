@@ -1,60 +1,18 @@
 ---
-- name: Install nginx
-  become: true
-  become_method: su
-  ansible.builtin.apt:
-    name: nginx
-    state: present
-    update_cache: true
-
-  notify:
-    - Restart nginx
-  tags: [install]
-
 - name: Install Vector
   become: true
   become_method: su
   ansible.builtin.apt:
     deb: "https://packages.timber.io/vector/{{ package_version }}/vector_{{ package_version }}-1_amd64.deb"
-
   notify:
     - Restart vector
   tags: [install]
 
 - name: Copy config
   become: true
-  become_method: su
   ansible.builtin.template:
     src: "{{ vector_template }}"
     dest: "{{ vector_config_file }}"
     mode: 0644
   notify: Restart vector
-  tags: [install]
-
-- name: Use the right config_file
-  become: true
-  become_method: su
-  ansible.builtin.lineinfile:
-    path: /etc/default/vector
-    line: "VECTOR_CONFIG={{ vector_config_file }}"
-    state: present
-  tags: [install]
-
-- name: Add vector user to systemd-journal group
-  become: true
-  become_method: su
-  ansible.builtin.user:
-    name: vector
-    groups: systemd-journal
-    append: yes
-  notify: Restart vector
-  tags: [install]
-
-- name: Start Vector
-  become: true
-  become_method: su
-  ansible.builtin.service:
-    state: started
-    enabled: yes
-    name: vector
   tags: [install]

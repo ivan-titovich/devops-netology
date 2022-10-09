@@ -2,12 +2,15 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: podman
 platforms:
-  - name: ubuntu_latest
-    image: ubuntu:latest
+  - name: centos_7_podman
+    image: centos:7
+#    dockerfile: ../resources/Dockerfile.j2
+#    image: quay.io/centos/centos:stream8
+    pre_build_image: false
     command: /usr/sbin/init
-    privileged: true
+#    privileged: true
     capabilities:
       - SYS_ADMIN
     tmpfs:
@@ -19,7 +22,8 @@ platforms:
       ANSIBLE_USER: ansible
       SUDO_GROUP: wheel
       DEPLOY_GROUP: deployer
-      container: docker
+      container: podman
+
 provisioner:
   name: ansible
   playbooks:

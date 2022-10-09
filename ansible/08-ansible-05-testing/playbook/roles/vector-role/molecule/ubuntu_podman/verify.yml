@@ -5,10 +5,10 @@
   tasks:
   - name: 'Vector config-file exist'
     stat:
-      path: "/etc/vector/vector.toml"
+      path: "/etc/vector/vector.toml1"
     register: config_file
 
-  - name: 'Assert config-file by path "/etc/vector/vector.toml"'
+  - name: 'Assert config-file by path "/etc/vector/vector.toml1"'
     ansible.builtin.assert:
       that:
         - "config_file.stat.exists"

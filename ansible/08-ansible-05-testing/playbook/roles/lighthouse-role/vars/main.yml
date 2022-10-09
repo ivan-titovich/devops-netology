@@ -1,7 +1,7 @@
 ---
 
 lighthouse_template: "templates/lighthouse.conf"
-lighthouse_config_file: "/usr/share/nginx/lighthouse"
+lighthouse_config_file: "/etc/nginx/conf.d"
 
 nginx_template: "templates/nginx.conf"
 nginx_config_file: "/etc/nginx"

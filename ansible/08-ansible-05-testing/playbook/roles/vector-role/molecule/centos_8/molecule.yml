@@ -8,6 +8,7 @@ platforms:
     image: quay.io/centos/centos:stream8
     pre_build_image: true
     command: /usr/sbin/init
+#    command: ${MOLECULE_DOCKER_COMMAND:-"/usr/sbin/init"}
     privileged: true
     capabilities:
       - SYS_ADMIN
@@ -23,5 +24,7 @@ platforms:
       container: docker
 provisioner:
   name: ansible
+  playbooks:
+    converge: ../resources/playbooks/converge.yml
 verifier:
   name: ansible

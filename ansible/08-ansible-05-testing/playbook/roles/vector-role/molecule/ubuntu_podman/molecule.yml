@@ -2,24 +2,16 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: podman
 platforms:
-  - name: ubuntu_latest
+  - name: ubuntu_podman
     image: ubuntu:latest
-    command: /usr/sbin/init
     privileged: true
-    capabilities:
-      - SYS_ADMIN
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup
     env:
       ANSIBLE_USER: ansible
       SUDO_GROUP: wheel
       DEPLOY_GROUP: deployer
-      container: docker
+      container: podman
 provisioner:
   name: ansible
   playbooks:

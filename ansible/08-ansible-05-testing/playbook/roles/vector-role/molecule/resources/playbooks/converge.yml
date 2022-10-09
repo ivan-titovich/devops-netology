@@ -2,7 +2,9 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: 'Apply Clickhouse Role'
+    - name: 'Apply vector Role'
       include_role:
-        name: clickhouse
-#        name: ansible-clickhouse
+        name: "{{ item }}"
+      loop:
+#        - clickhouse
+        - vector-role
