@@ -1,7 +1,7 @@
 ---
 - name: Install Vector
   become: true
-  become_method: su
+#  become_method: su
   ansible.builtin.apt:
     deb: "https://packages.timber.io/vector/{{ package_version }}/vector_{{ package_version }}-1_amd64.deb"
   notify:

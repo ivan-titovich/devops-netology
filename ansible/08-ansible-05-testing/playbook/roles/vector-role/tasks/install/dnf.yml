@@ -1,4 +1,10 @@
 ---
+- name: Install sudo
+  ansible.builtin.yum:
+    name: sudo
+    state: present
+    disable_gpg_check: yes # package is not signed
+  tags: [install]
 
 - name: Install Vector
   become: true

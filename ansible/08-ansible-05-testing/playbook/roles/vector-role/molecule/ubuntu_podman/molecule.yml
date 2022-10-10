@@ -6,10 +6,19 @@ driver:
 platforms:
   - name: ubuntu_podman
     image: ubuntu:latest
+    dockerfile: ../resources/Dockerfile.j2
+    command: /sbin/init
     privileged: true
+#    capabilities:
+#      - SYS_ADMIN
+#    tmpfs:
+#      - /run
+#      - /tmp
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup
     env:
       ANSIBLE_USER: ansible
-      SUDO_GROUP: wheel
+      SUDO_GROUP: sudo
       DEPLOY_GROUP: deployer
       container: podman
 provisioner:

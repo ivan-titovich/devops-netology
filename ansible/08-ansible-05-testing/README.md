@@ -24,6 +24,14 @@
 5. Добавьте новый тег на коммит с рабочим сценарием в соответствии с семантическим версионированием.
 
 > [vector-role v0.1.1](https://github.com/ivan-titovich/vector-role/tree/0.1.1)
+> 
+> Screenshots:
+> 
+> ![centos_8_podman](src/centos_8_podman.png)
+> 
+> ![ubuntu_podman](src/Ubuntu_podman.png)
+> 
+
 
 ### Tox
 
