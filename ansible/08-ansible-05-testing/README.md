@@ -45,6 +45,8 @@
 
 
 > [vector-role v0.1.1-tox](https://github.com/ivan-titovich/vector-role/tree/0.1.1-tox)
+> 
+>  ![centos_8_tox](src/Centos_8_tox.png)
 
 ## Необязательная часть
 
