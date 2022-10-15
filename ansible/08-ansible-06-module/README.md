@@ -172,7 +172,7 @@ if __name__ == '__main__':
 17. В ответ необходимо прислать ссылку на репозиторий с collection
 
 
-> [Ansible-module-collection](https://github.com/ivan-titovich/ansible-module-collection/tree/1.0.1)
+> [Ansible-module-collection](https://github.com/ivan-titovich/ansible-module-collection/tree/1.0.1/my_own_namespace/yandex_cloud_elk)
 > 
 
 ## Необязательная часть
