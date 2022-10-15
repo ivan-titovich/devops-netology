@@ -1,0 +1,13 @@
+---
+- name: test my new module
+  hosts: localhost
+  tasks:
+  - name: run the new module
+    my_own_module:
+      "path": "/home/lokli/ansible_module.txt"
+      "content": "Test content from ansible-playbook testmod.yml"
+    register: testout
+
+  - name: dump test output
+    debug:
+      msg: '{{ testout }}'

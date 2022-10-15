@@ -1,0 +1,3 @@
+---
+"path": /var/log/ansible_module.txt
+"content": "Test content from ansible-playbook testmod.yml"

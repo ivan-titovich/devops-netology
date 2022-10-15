@@ -1,0 +1,3 @@
+---
+path: "/var/default_ansible_module.txt"
+content: "default Test content from ansible-playbook testmod.yml"

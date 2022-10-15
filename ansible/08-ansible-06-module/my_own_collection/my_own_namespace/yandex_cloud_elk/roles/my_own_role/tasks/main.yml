@@ -1,0 +1,12 @@
+---
+
+- name: run the new module
+  become: true
+  my_own_module:
+    "path": "{{ path }}"
+    "content": "{{ content }}"
+#  register: testout
+#
+#- name: dump test output
+#  debug:
+#    msg: '{{ testout }}'
