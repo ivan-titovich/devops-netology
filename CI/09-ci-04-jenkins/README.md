@@ -6,10 +6,18 @@
 2. Установить jenkins при помощи playbook'a.
 3. Запустить и проверить работоспособность.
 4. Сделать первоначальную настройку.
+> Сделано. 
 
 ## Основная часть
 
 1. Сделать Freestyle Job, который будет запускать `molecule test` из любого вашего репозитория с ролью.
+[Screenshot with log freestyle job](src/1.1_log.png)
+
+``` shell
+pip3 install molecule molecule_podman
+ansible-galaxy role init vector-role --force
+molecule test -s ubuntu_podman
+```
 2. Сделать Declarative Pipeline Job, который будет запускать `molecule test` из любого вашего репозитория с ролью.
 3. Перенести Declarative Pipeline в репозиторий в файл `Jenkinsfile`.
 4. Создать Multibranch Pipeline на запуск `Jenkinsfile` из репозитория.
