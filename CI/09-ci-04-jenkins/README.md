@@ -79,35 +79,30 @@ pipeline {
 node("linux"){
     def isProdRun = env.prod_run
     stage("Git checkout"){
-        git credentialsId: 'b8b09eaa-f7fe-4fc0-9f4b-e425da808365', url: 'git@github.com:ivan-titovich/click_vector_light.git'
+        git credentialsId: '1886761a-cf53-417f-8f47-9259c3d1a684', url: 'git@github.com:ivan-titovich/click_vector_light.git'
     }
-    stage("Run playbook"){
-        if (isProdRun == true) {
-            sh 'ansible-playbook site.yml -i inventory/prod.yml --check --diff'
-        }
-        else{
-            sh 'ansible-playbook site.yml -i inventory/prod.yml'
+
+    if (isProdRun == 'true'){
+    stage("Run playbook with -check and --diff"){
+        sh 'ansible-playbook site.yml -i inventory/prod.yml --check --diff'
         }
     }
-}
+    else{
+        stage("Run playbook without -check and --diff")
+        sh 'ansible-playbook site.yml -i inventory/prod.yml'
+        }
+    }
+
 ```
 7. Проверить работоспособность, исправить ошибки, исправленный Pipeline вложить в репозиторий в файл `ScriptedJenkinsfile`. Цель: получить собранный стек ELK в Ya.Cloud.
 8. Отправить две ссылки на репозитории в ответе: с ролью и Declarative Pipeline и c плейбукой и Scripted Pipeline.
 
-> [Declarative Pipeline](https://github.com/ivan-titovich/vector-role)
+> [Declarative Pipeline](https://github.com/ivan-titovich/vector-role.git)
 > 
-> [Scripted Pipeline](Scripted Pipeline)
+> [Scripted Pipeline](https://github.com/ivan-titovich/click_vector_light.git)
 
 
 ## Необязательная часть
 
 1. Создать скрипт на groovy, который будет собирать все Job, которые завершились хотя бы раз неуспешно. Добавить скрипт в репозиторий с решеним с названием `AllJobFailure.groovy`.
 2. Дополнить Scripted Pipeline таким образом, чтобы он мог сначала запустить через Ya.Cloud CLI необходимое количество инстансов, прописать их в инвентори плейбука и после этого запускать плейбук. Тем самым, мы должны по нажатию кнопки получить готовую к использованию систему.
-
----
-
-### Как оформить ДЗ?
-
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
-
----
