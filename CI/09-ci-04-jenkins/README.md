@@ -13,7 +13,7 @@
 1. Сделать Freestyle Job, который будет запускать `molecule test` из любого вашего репозитория с ролью.
 
 
-[Screenshot with success status freestyle job](src/1.1_success_job.png)
+>[Screenshot with success status freestyle job](src/1.1_success_job.png)
 
 
 На docker не удалось запустить molecule - ошибки. На podman тестирование успешно. Но чтобы устаносить и запустить podman нужно разрешить запуск sudo без ввода пароля (на тестовом стенде - допустимо, в реальных условиях - необходимо использовать другие методы). 
@@ -34,7 +34,7 @@ ansible-galaxy role init vector-role --force
 molecule test -s ubuntu_podman
 ```
 2. Сделать Declarative Pipeline Job, который будет запускать `molecule test` из любого вашего репозитория с ролью.
-[declarative pipeline](src/2.1_dec_pipeline.png)
+>[Screenshot with success status declarative pipeline](src/2.1_dec_pipeline.png)
 
 ```groovy
 pipeline {
@@ -69,7 +69,7 @@ pipeline {
 
 ```
 3. Перенести Declarative Pipeline в репозиторий в файл `Jenkinsfile`.
->[Jenkinsfile]()
+> [Jenkinsfile](https://github.com/ivan-titovich/vector-role/blob/main/Jenkinsfile)
 4. Создать Multibranch Pipeline на запуск `Jenkinsfile` из репозитория.
 > [multibranch pipeline](src/4.1_multibranch_pipeline.png)
 5. Создать Scripted Pipeline, наполнить его скриптом из [pipeline](./pipeline).
@@ -95,11 +95,14 @@ node("linux"){
 
 ```
 7. Проверить работоспособность, исправить ошибки, исправленный Pipeline вложить в репозиторий в файл `ScriptedJenkinsfile`. Цель: получить собранный стек ELK в Ya.Cloud.
+
+> [Screenshot with success status scripted pipeline](src/7.1_scripted_pipeline.png)
+ 
 8. Отправить две ссылки на репозитории в ответе: с ролью и Declarative Pipeline и c плейбукой и Scripted Pipeline.
 
-> [Declarative Pipeline](https://github.com/ivan-titovich/vector-role.git)
+> [Repository with Declarative Pipeline](https://github.com/ivan-titovich/vector-role.git)
 > 
-> [Scripted Pipeline](https://github.com/ivan-titovich/click_vector_light.git)
+> [Repository with Scripted Pipeline](https://github.com/ivan-titovich/click_vector_light.git)
 
 
 ## Необязательная часть
