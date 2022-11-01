@@ -19,8 +19,9 @@ deployer:
     stage: deploy
     script:
         - echo " deploying for developer"
-        - docker build -t $CI_REGISTRY/ivan-titovich/09-ci-06/python-api:latest .
-        - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-        - docker push $CI_REGISTRY/ivan-titovich/09-ci-06/python-api:latest
+        - docker build -t python-api:latest .
+        #- docker build -t $CI_REGISTRY/ivan-titovich/09-ci-06/python-api:latest .
+        #- docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+        #- docker push $CI_REGISTRY/ivan-titovich/09-ci-06/python-api:latest
     only:
         - main

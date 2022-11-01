@@ -13,4 +13,4 @@ class Info(Resource):
 api.add_resource(Info, '/get_info')
 
 if __name__ == '__main__':
-     app.run(host='0.0.0.0', port='5290')
+     app.run(host='0.0.0.0', port='5290')v
