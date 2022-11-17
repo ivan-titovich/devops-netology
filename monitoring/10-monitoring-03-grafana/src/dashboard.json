@@ -19,6 +19,46 @@
   "links": [],
   "panels": [
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                85
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "CPU - usage in percents",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "Test",
+        "name": "CPU - usage in percents alert",
+        "noDataState": "alerting",
+        "notifications": [
+          {
+            "uid": "3wavi4dVk"
+          }
+        ]
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -74,7 +114,16 @@
           "refId": "CPU - usage in percents"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 85,
+          "visible": true
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -94,14 +143,16 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:793",
           "format": "short",
           "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "100",
+          "min": "0",
           "show": true
         },
         {
+          "$$hashKey": "object:794",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -116,6 +167,46 @@
       }
     },
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                4
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "Test CPULA",
+        "name": "CPULA 1/5/15 alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "3wavi4dVk"
+          }
+        ]
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -184,7 +275,16 @@
           "refId": "C"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 4,
+          "visible": true
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -204,14 +304,17 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:841",
+          "decimals": null,
           "format": "short",
           "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "6",
+          "min": "0",
           "show": true
         },
         {
+          "$$hashKey": "object:842",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -226,6 +329,41 @@
       }
     },
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                90
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "Disk usage in % alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -274,13 +412,23 @@
       "targets": [
         {
           "expr": "100 - ((node_filesystem_avail_bytes{ mountpoint=\"/\",fstype!=\"rootfs\", instance=\"nodeexporter:9100\", job=\"nodeexporter\"} *100) / node_filesystem_size_bytes{ mountpoint=\"/\",fstype!=\"rootfs\",  instance=\"nodeexporter:9100\", job=\"nodeexporter\"})\n",
+          "format": "time_series",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
           "refId": "A"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 90,
+          "visible": true
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -300,14 +448,16 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:620",
           "format": "short",
-          "label": null,
+          "label": "%",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "100",
+          "min": "0",
           "show": true
         },
         {
+          "$$hashKey": "object:621",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -322,6 +472,46 @@
       }
     },
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                70
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "Free memory.",
+        "name": "Free memory (%) alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "3wavi4dVk"
+          }
+        ]
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -376,7 +566,16 @@
           "refId": "A"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 70,
+          "visible": true
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -396,14 +595,16 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:697",
           "format": "short",
-          "label": null,
+          "label": "%",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "100",
+          "min": "0",
           "show": true
         },
         {
+          "$$hashKey": "object:698",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -426,12 +627,12 @@
     "list": []
   },
   "time": {
-    "from": "2022-11-15T18:39:36.899Z",
-    "to": "2022-11-15T20:21:42.749Z"
+    "from": "now-1h",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "HW_Dash",
   "uid": "MltHdkOVk",
-  "version": 2
+  "version": 4
 }
