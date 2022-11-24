@@ -1,0 +1,105 @@
+version: "3"
+services:
+    es-hot:
+        image: "docker.elastic.co/elasticsearch/elasticsearch:7.16.2"
+        container_name: es-hot
+        environment:
+          - node.name=es-hot
+          - cluster.name=es-docker-cluster
+          - discovery.seed_hosts=es-warm
+          - cluster.initial_master_nodes=es-hot,es-warm
+          - bootstrap.memory_lock=true
+          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ports:
+            - "9200:9200"
+        volumes:
+            - data01:/usr/share/elasticsearch/data:Z
+        networks:
+            - elastic
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+            nofile:
+                soft: 65536
+                hard: 65536
+        depends_on:
+            - es-warm
+
+    es-warm:
+        image: "docker.elastic.co/elasticsearch/elasticsearch:7.16.2"
+        container_name: es-warm
+        environment:
+            - node.name=es-warm
+            - cluster.name=es-docker-cluster
+            - discovery.seed_hosts=es-hot
+            - cluster.initial_master_nodes=es-hot,es-warm
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        volumes:
+            - data02:/usr/share/elasticsearch/data:Z
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+            nofile:
+                soft: 65536
+                hard: 65536
+        networks:
+            - elastic
+
+
+    kibana:
+        image: "docker.elastic.co/kibana/kibana:7.16.2"
+        container_name: kibana
+        ports:
+            - "5601:5601"
+        environment:
+            ELASTICSEARCH_URL: http://es-hot:9200
+            ELASTICSEARCH_HOSTS: '["http://es-hot:9200","http://es-warm:9200"]'
+        networks:
+            - elastic
+        depends_on:
+            - es-hot
+            - es-warm
+
+#    logstash:
+#        image: logstash:7.16.2
+#        container_name: logstash
+#        ports:
+#            - 5046:5046
+#        environment:
+#            LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+#        volumes:
+#            - ./files/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+#            - ./files/logstash.yml:/usr/share/logstash/config/logstash.yml:Z
+#        networks:
+#            - elastic
+#        depends_on:
+#            - es-hot
+#            - es-warm
+
+    filebeat:
+        image: "docker.elastic.co/beats/filebeat:7.16.2"
+        container_name: filebeat
+        user: root
+        privileged: true
+        volumes:
+            - ./files/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+            - /var/lib/docker:/var/lib/docker:ro
+            - /var/run/docker.sock:/var/run/docker.sock
+#        depends_on:
+#            - logstash
+
+volumes:
+    data01:
+        driver: local
+    data02:
+        driver: local
+    data03:
+        driver: local
+
+networks:
+    elastic:
+        driver: bridge
+
