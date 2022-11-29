@@ -44,6 +44,13 @@ Filebeat следует сконфигурировать для отправки
 - docker-compose манифест (если вы не использовали директорию help)
 - ваши yml конфигурации для стека (если вы не использовали директорию help)
 
+> [Скриншот запущенных контейнеров](src/docker_compose_list.png)
+> 
+> [Скриншот интерфейса kibana с datasviews](src/fiilebeat_src.png)
+> 
+> 
+
+
 ## Задание 2
 
 Перейдите в меню [создания index-patterns  в kibana](http://localhost:5601/app/management/kibana/indexPatterns/create)
@@ -56,5 +63,16 @@ Filebeat следует сконфигурировать для отправки
 Данные логи должны порождать индекс logstash-* в elasticsearch. Если данного индекса нет - воспользуйтесь советами 
 и источниками из раздела "Дополнительные ссылки" данного ДЗ.
  
-
+> Не получается поднять logstash, точнее он работает, но в дата-сурсах кибаны не отображается и в логах с кодировкой (?) проблемы.
+> 
+> [Логи filebeats](src/filebeat.log)
+> 
+> [Логи logstash](src/logstash.log)
+> 
+> [тестовый elk](elk-8.5)
+>
+> Filebeat напрямую в ES отправляет. 
+>
+> [Скриншот интерфейса kibana](src/kibana_screenshot.png)
+ 
  
