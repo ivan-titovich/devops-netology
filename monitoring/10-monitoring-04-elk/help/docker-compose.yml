@@ -24,7 +24,7 @@ services:
         soft: 65536
         hard: 65536
     ports:
-      - 9200:9200
+      - "9200:9200"
     networks:
       - elastic
     depends_on:
@@ -89,6 +89,8 @@ services:
       - ./configs/filebeat.yml:/usr/share/filebeat/filebeat.yml:Z
       - /var/lib/docker:/var/lib/docker:Z
       - /var/run/docker.sock:/var/run/docker.sock:Z
+    networks:
+      - elastic
     depends_on:
       - logstash
 

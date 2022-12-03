@@ -1,7 +1,7 @@
 version: "3"
 services:
   es-hot:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:8.5.1"
+    image: "elastic/elasticsearch:8.5.1"
     container_name: es-hot
     environment:
       - node.name=es-hot
@@ -28,7 +28,7 @@ services:
       - es-warm
 
   es-warm:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:8.5.1"
+    image: "elastic/elasticsearch:8.5.1"
     container_name: es-warm
     environment:
       - node.name=es-warm
@@ -52,7 +52,7 @@ services:
 
 
   kibana:
-    image: "docker.elastic.co/kibana/kibana:8.5.1"
+    image: "elastic/kibana:8.5.1"
     container_name: kibana
     ports:
       - "5601:5601"
@@ -82,12 +82,13 @@ services:
       - es-warm
 
   filebeat:
-    image: "docker.elastic.co/beats/filebeat:8.5.1"
+    image: "elastic/filebeat:8.5.1"
     container_name: filebeat
     user: root
     privileged: true
     volumes:
       - ./files/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./files/sample-json.log:/opt/sample-json.log
       - /var/lib/docker:/var/lib/docker:ro
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
