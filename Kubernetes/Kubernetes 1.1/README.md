@@ -76,6 +76,30 @@
 
 ------
 ![screenshot_2](src/kubectl_port-forward_to_yc.png)
+
+
+```shell
+cat .kube/config 
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: KEY_HERE==
+    server: https://158.160.43.224:16443
+  name: microk8s-cluster
+contexts:
+- context:
+    cluster: microk8s-cluster
+    user: admin
+  name: microk8s
+current-context: microk8s
+kind: Config
+preferences: {}
+users:
+- name: admin
+  user:
+    token: --Token--Here--
+
+```
 ------
 
 ### Правила приема работы
