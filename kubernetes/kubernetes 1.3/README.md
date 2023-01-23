@@ -63,9 +63,54 @@ spec:
 ```
 2. После запуска увеличить кол-во реплик работающего приложения до 2
 3. Продемонстрировать кол-во подов до и после масштабирования
-4. Создать Service, который обеспечит доступ до реплик приложений из п.1
-5. Создать отдельный Pod с приложением multitool и убедиться с помощью `curl` что из пода есть доступ до приложений из п.1
+> До ![before](src/1-2_before.png)
+> 
+> После ![after](src/1-2_after.png)
+> 
 
+4. Создать Service, который обеспечит доступ до реплик приложений из п.1
+> Service: ![svc](src/1-4_svc.png)
+> Скриншот доступности сервиса: ![proof](src/1-4_proof.png)
+> 
+5. Создать отдельный Pod с приложением multitool и убедиться с помощью `curl` что из пода есть доступ до приложений из п.1
+> [Под создан этим конфигом](src/1-3-1-multitool_pod.yaml)
+>
+> Вывод подов и запуск команды `curl` из пода (`kubectl exec multitool -- curl http://10.152.183.77:80`): 
+```shell
+lokli@lpc:~/devops-netology$ kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+nginx-and-multitool-788cc5df75-sj4jw   2/2     Running   0          28m
+nginx-and-multitool-788cc5df75-t7hg9   2/2     Running   0          27m
+multitool                              1/1     Running   0          6m25s
+lokli@lpc:~/devops-netology$ kubectl exec multitool -- curl http://10.152.183.77:80
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   615  100   615    0     0   823k      0 --:--:-- --:--:-- --:--:--  600k
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+
+```
 ------
 
 ### Задание 2. Создать Deployment и обеспечить старт основного контейнера при выполнении условий
