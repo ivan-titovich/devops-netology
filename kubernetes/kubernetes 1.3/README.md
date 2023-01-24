@@ -116,10 +116,59 @@ Commercial support is available at
 ### Задание 2. Создать Deployment и обеспечить старт основного контейнера при выполнении условий
 
 1. Создать Deployment приложения nginx и обеспечить старт контейнера только после того, как будет запущен сервис этого приложения
-2. Убедиться, что nginx не стартует. В качестве init-контейнера взять busybox
-3. Создать и запустить Service. Убедиться, что nginx запустился
-4. Продемонстрировать состояние пода до и после запуска сервиса
+> [deployament-nginx.yaml](src/1-3-2-nginx.yaml)
+3. Убедиться, что nginx не стартует. В качестве init-контейнера взять busybox
+> logs: 
+```
+$ kubectl logs nginx-74fb6dccd6-gp7gq  -c check-svc
+nslookup: can't resolve 'nginx-svc'
+Server:    10.152.183.10
+Address 1: 10.152.183.10 kube-dns.kube-system.svc.cluster.local
 
+waiting for nginx-svc
+Server:    10.152.183.10
+Address 1: 10.152.183.10 kube-dns.kube-system.svc.cluster.local
+
+nslookup: can't resolve 'nginx-svc'
+waiting for nginx-svc
+```
+> [Screenshot](src/nginx-init-logs.png)
+3. Создать и запустить Service. Убедиться, что nginx запустился
+>[nginx-service.yaml](src/1-3-2-nginx_svc.yaml)
+```
+kubectl get svc
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.152.183.1     <none>        443/TCP   22h
+nginx-svc    ClusterIP   10.152.183.127   <none>        80/TCP    6m56s
+
+```
+```
+kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-74fb6dccd6-gp7gq   1/1     Running   0          73s
+nginx-74fb6dccd6-9xwqd   1/1     Running   0          12s
+
+```
+4. Продемонстрировать состояние пода до и после запуска сервиса
+> До запуска сервиса:
+```
+kubectl get pods
+NAME                     READY   STATUS                  RESTARTS      AGE
+nginx-b975d4d7c-ckn4s    0/1     Init:CrashLoopBackOff   4 (51s ago)   2m35s
+nginx-5b9748c78d-vhqrt   0/1     Init:CrashLoopBackOff   5 (45s ago)   3m49s
+nginx-74fb6dccd6-gp7gq   0/1     Init:0/1                0             7s
+
+
+```
+> После запуска сервиса: 
+```
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-74fb6dccd6-gp7gq   1/1     Running   0          73s
+nginx-74fb6dccd6-9xwqd   1/1     Running   0          12s
+
+
+```
+[Screenshot 2](src/running-pod-when-service-started.png)
 ------
 
 ### Правила приема работы

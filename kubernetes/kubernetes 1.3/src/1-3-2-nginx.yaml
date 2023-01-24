@@ -22,5 +22,5 @@ spec:
          - containerPort: 80
       initContainers:
       - name: check-svc
-        image: busybox
-        command: ['dig +short nginx-svc']
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup nginx-svc; do echo waiting for nginx-svc; sleep 2; done"]
