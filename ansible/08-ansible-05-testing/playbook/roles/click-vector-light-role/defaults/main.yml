@@ -1,0 +1,4 @@
+---
+# defaults file for click-vector-light-role
+package_version: "0.22.3"
+arch: "x86_64"
