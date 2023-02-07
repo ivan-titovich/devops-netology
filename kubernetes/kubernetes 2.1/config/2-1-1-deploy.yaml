@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy
+  labels:
+    app: deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deploy
+
+  template:
+    metadata:
+      labels:
+        app: deploy
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+          - name: HTTP_PORT
+            value: "18080"
+          - name: HTTPS_PORT
+            value: "11443"
+        volumeMounts:
+        - name: busy
+          mountPath: "/input"
+
+      - name: busybox
+        image: busybox
+        command: ['sh', '-c', 'j=0; while true; do echo Container alive $j seconds; j=$((j+5)) && sleep 5;done > /output/busylog.txt']
+        volumeMounts:
+        - name: busy
+          mountPath: "/output"
+      volumes:
+      - name: busy
+        hostPath:
+          path: /tmp/busy-test
+
+
+
