@@ -3,16 +3,16 @@ kind: DaemonSet
 metadata:
   name: ds
   labels:
-    app: ds
+    name: ds
 spec:
   selector:
     matchLabels:
-      app: ds
+      name: ds
 
   template:
     metadata:
       labels:
-        app: ds
+        name: ds
     spec:
       containers:
       - name: multitool
@@ -29,6 +29,3 @@ spec:
       - name: varlog
         hostPath:
           path: /var/log/syslog
-
-
-
