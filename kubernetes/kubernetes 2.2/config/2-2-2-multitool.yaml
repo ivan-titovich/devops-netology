@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multitool
+  labels:
+    name: multitool
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: multitool
+
+  template:
+    metadata:
+      labels:
+        name: multitool
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+          - name: HTTP_PORT
+            value: "18080"
+          - name: HTTPS_PORT
+            value: "11443"
+        volumeMounts:
+        - name: vol
+          mountPath: "/input"
+
+      volumes:
+      - name: vol
+        persistentVolumeClaim:
+          claimName: my-pvc1
+
+
+
