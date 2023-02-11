@@ -57,9 +57,9 @@
 >
 > [Deployment.config](config/2-2-1-deploy.yaml)
 > 
-> [PersiistentVolume.config](config/2-2-1-pv.yaml)
+> [PersistentVolume.config](config/2-2-1-pv.yaml)
 >
-> [PersiistentVolumeClaim.config](config/2-2-1-pvc.yaml)
+> [PersistentVolumeClaim.config](config/2-2-1-pvc.yaml)
 > 
 > [Состояние системы: pv, pvc, pods](src/2-2-1-3-pv-pvc-pod-status.png)
 > 
