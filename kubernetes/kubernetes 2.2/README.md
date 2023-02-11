@@ -28,9 +28,9 @@
 1. Создать Deployment приложения состоящего из контейнеров busybox и multitool.
 > [Deployment.config](config/2-2-1-deploy.yaml)
 2. Создать PV и PVC для подключения папки на локальной ноде, которая будет использована в поде.
-> [PersiistentVolume.config](config/2-2-1-pv.yaml)
+> [PersistentVolume.config](config/2-2-1-pv.yaml)
 >
-> [PersiistentVolumeClaim.config](config/2-2-1-pvc.yaml)
+> [PersistentVolumeClaim.config](config/2-2-1-pvc.yaml)
 3. Продемонстрировать, что multitool может читать файл, в который busybox пишет каждые 5 секунд в общей директории.
 > [Состояние системы: pv, pvc, pods](src/2-2-1-3-pv-pvc-pod-status.png)
 > 
