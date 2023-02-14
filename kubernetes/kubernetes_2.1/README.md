@@ -34,19 +34,19 @@
 3. Обеспечить возможность чтения файла контейнером multitool.
 > `kubectl exec deploy-869b5bb5c7-k7sth  -c multitool -- cat /input/busylog.txt`
 >
-> [screenshot](src/2-1-1-3.png)
+> ![screenshot](src/2-1-1-3.png)
 4. Продемонстрировать, что multitool может читать файл, который периодоически обновляется.
 > `kubectl exec deploy-869b5bb5c7-k7sth -it  -c multitool -- tail -f /input/busylog.txt`
 >
-> [screenshot](src/2-1-1-4.png)
+> ![screenshot](src/2-1-1-4.png)
 5. Предоставить манифесты Deployment'а в решении, а также скриншоты или вывод команды п.4
 > Summary:
 > 
 >[deployment.config](config/2-1-1-deploy.yaml)
 > 
-> [screenshot](src/2-1-1-3.png)
+> ![screenshot](src/2-1-1-3.png)
 > 
-> [screenshot](src/2-1-1-4.png)
+> ![screenshot](src/2-1-1-4.png)
 ------
 
 ### Задание 2. Создать DaemonSet приложения, которое может прочитать логи ноды

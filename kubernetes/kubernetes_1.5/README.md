@@ -117,9 +117,9 @@ Commercial support is available at
 > 
 > [ingress config](config/1-5-2-ingress.yaml)
 > 
-> [Конфигурация стенда(screenshot)](src/1-5-2_addresses_and_names.png)
+> ![Конфигурация стенда(screenshot)](src/1-5-2_addresses_and_names.png)
 > 
-> [proof](src/1-5-2_proof.png)
+> ![proof](src/1-5-2_proof.png)
 ------
 
 ### Правила приема работы
