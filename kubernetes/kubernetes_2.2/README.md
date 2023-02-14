@@ -32,20 +32,20 @@
 >
 > [PersistentVolumeClaim.config](config/2-2-1-pvc.yaml)
 3. Продемонстрировать, что multitool может читать файл, в который busybox пишет каждые 5 секунд в общей директории.
-> [Состояние системы: pv, pvc, pods](src/2-2-1-3-pv-pvc-pod-status.png)
+> ![Состояние системы: pv, pvc, pods](src/2-2-1-3-pv-pvc-pod-status.png)
 > 
-> [screenshot multitool reading file](src/2-2-1-3-scr--mooltitool-reading-file.png)
+> ![screenshot multitool reading file](src/2-2-1-3-scr--mooltitool-reading-file.png)
 >
 4. Продемонстрировать, что файл сохранился на локальном диске ноды, а также что произойдет с файлом после удаления пода и deployment'а. Почему?
 > Файл на локальном диске располагается по пути /tmp/vol1/ , называется busylog.txt 
 > 
 > Просмотр файла можно выполнить командой `tail -f /tmp/vol1/busylog.txt `
 > 
-> [Результат выполнения команды](src/2-2-1-4-tail-file.png)
+> ![Результат выполнения команды](src/2-2-1-4-tail-file.png)
 >
 > После удаления ресурсов (pod, pv, pvc) файл на дисковой системе по прежнему пути останется. 
 > 
-> [Файл после удаления ресурсов](src/2-2-1-4-file-after-removing.png)
+> ![Файл после удаления ресурсов](src/2-2-1-4-file-after-removing.png)
 > 
 > Файлы остаются после удаления ресурсов потому что по сути при использовании PersistentVolume и PersistentVolumeClaim "диск монтируется", а не создается, поэтому после удаления по сути происходит "размонтирование". 
 > 
@@ -81,14 +81,14 @@
 > 
 > [PersistentVolumeClaim config](config/2-2-2-pvc-nfs.yaml)
 > 
-> [screenshot](src/2-2-2-2-sys.png)
+> ![screenshot](src/2-2-2-2-sys.png)
 > 
 3. Продемонстрировать возможность чтения и записи файла изнутри пода.
 >Из пода зашел и создал файл, записал в него. Прочитал.
 >
 > Параллельно зашел на диск, в папку, созданную автоматически, увидел файл и смог его прочитать. 
 > 
-> [Скриншот подтверждения написанного.](src/2-2-2-3-read-write.png)
+> ![Скриншот подтверждения написанного.](src/2-2-2-3-read-write.png)
 > 
 4. Предоставить манифесты, а также скриншоты и/или вывод необходимых команд.
 > Summary: 
@@ -99,9 +99,9 @@
 > 
 > [PersistentVolumeClaim config](config/2-2-2-pvc-nfs.yaml)
 > 
-> [screenshot](src/2-2-2-2-sys.png)
+> ![screenshot](src/2-2-2-2-sys.png)
 > 
-> [Скриншот.](src/2-2-2-3-read-write.png)
+> ![Скриншот.](src/2-2-2-3-read-write.png)
 > 
 
 ------
