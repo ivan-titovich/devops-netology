@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deploy-cm
+data:
+  HTTP_PORT: "18080"
+  HTTPS_PORT: "11443"

@@ -20,6 +20,9 @@ spec:
         image: nginx:latest
         ports:
          - containerPort: 80
+        volumeMounts:
+          - name: configmap-volume
+            mountPath: /usr/share/nginx/html/
       - name: multitool
         image: wbitt/network-multitool
         env:
@@ -34,3 +37,7 @@ spec:
               configMapKeyRef:
                 name: deploy-cm
                 key: "HTTPS_PORT"
+      volumes:
+        - name: configmap-volume
+          configMap:
+            name: cm-page

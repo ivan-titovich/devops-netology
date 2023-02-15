@@ -1,25 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-and-multitool
+  name: deploy
   labels:
-    app: nginx-and-multitool
+    name: deploy
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: nginx-and-multitool
+      name: deploy
 
   template:
     metadata:
       labels:
-        app: nginx-and-multitool
+        name: deploy
     spec:
       containers:
-      - name: nginx
-        image: nginx:latest
-        ports:
-         - containerPort: 80
       - name: multitool
         image: wbitt/network-multitool
         env:
@@ -34,3 +30,21 @@ spec:
               configMapKeyRef:
                 name: deploy-cm
                 key: "HTTPS_PORT"
+
+        volumeMounts:
+        - name: busy
+          mountPath: "/input"
+
+      - name: busybox
+        image: busybox
+        command: ['sh', '-c', 'j=0; while true; do echo Container alive $j seconds; j=$((j+5)) && sleep 5;done > /output/busylog.txt']
+        volumeMounts:
+        - name: busy
+          mountPath: "/output"
+      volumes:
+      - name: busy
+        hostPath:
+          path: /tmp/busy-test
+
+
+
