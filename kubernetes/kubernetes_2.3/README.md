@@ -81,10 +81,31 @@
 ### Задание 2. Создать приложение с вашей web-страницей, доступной по HTTPS 
 
 1. Создать Deployment приложения состоящего из nginx.
+> [deployment config ](config/2-3-2-nginx.yaml)
 2. Создать собственную web-страницу и подключить ее как ConfigMap к приложению.
+>Взял страницу из предыдущего задания
+> 
+>[nginx page](config/2-3-2-cm-nginx-page.yaml) 
 3. Выпустить самоподписной сертификат SSL. Создать Secret для использования данного сертификата.
-4. Создать Ingress и необходимый Service, подключить к нему SSL в вид. Продемонстировать доступ к приложению по HTTPS. 
-4. Предоставить манифесты, а также скриншоты и/или вывод необходимых команд.
+> Выпуск производится командой: `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt`
+>
+>Перевел данные из сертификата и ключа в base64, добавил в Secret
+> 
+> [nginx secret](config/2-3-2-nginx-secrets.yaml) 
+> 
+> 
+4. Создать Ingress и необходимый Service, подключить к нему SSL в вид. Продемонстировать доступ к приложению по HTTPS.
+> [service config](config/2-3-2-nginx_svc.yaml)
+>
+> Т.к. выпускал сертификат на IP адрес - при обращении к сервису - все работает отлично. 
+> 
+> ![service screenshot](src/2-3-2-5-screenshot.png)
+> 
+> Если запустить Ingress  - не работает.
+> 
+> [ingress config](config/2-3-2-ingress-nginx.yaml)
+
+5. Предоставить манифесты, а также скриншоты и/или вывод необходимых команд.
 
 ------
 
