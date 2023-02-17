@@ -1,22 +1,21 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-#  annotations:
-#    nginx.ingress.kubernetes.io/rewrite-target: /
   name: ingress-nginx
 spec:
   tls:
     - hosts:
-        - 10.152.183.107
+        - tia.edu
       secretName: nginx-secret
+  ingressClassName: nginx
   rules:
-  - host:
+  - host: tia.edu
     http:
       paths:
-      - path: "/"
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: nginx-svc
             port:
-              number: 443
+              number: 80

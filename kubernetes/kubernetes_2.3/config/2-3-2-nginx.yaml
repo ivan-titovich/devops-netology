@@ -21,20 +21,15 @@ spec:
         ports:
          - containerPort: 80
         volumeMounts:
-          - name: nginx-volume
+          - name: nginx-main-page
             mountPath: /usr/share/nginx/html/
           - name: nginx-config
             mountPath: /etc/nginx/conf.d/
-          - name: nginx-secret-volume
-            mountPath: /etc/nginx/ssl/
 
       volumes:
-        - name: nginx-volume
+        - name: nginx-main-page
           configMap:
             name: ssl-nginx
         - name: nginx-config
           configMap:
             name: nginx-conf
-        - name: nginx-secret-volume
-          secret:
-            secretName: nginx-secret

@@ -95,24 +95,29 @@
 > 
 > 
 4. Создать Ingress и необходимый Service, подключить к нему SSL в вид. Продемонстировать доступ к приложению по HTTPS.
-> [service config](config/2-3-2-nginx_svc.yaml)
->
-> Т.к. выпускал сертификат на IP адрес - при обращении к сервису - все работает отлично. 
+>Если допустить, что на границе нашей инфраструктуры стоит ingress и все что за ним - в защищенном контуре, то внутри ssl-шифрование не нужно. 
 > 
-> ![service screenshot](src/2-3-2-5-screenshot.png)
-> 
-> Если запустить Ingress  - не работает.
+> Поэтому до ingress - https, после - http. 
 > 
 > [ingress config](config/2-3-2-ingress-nginx.yaml)
+> 
+> [service config](config/2-3-2-nginx_svc.yaml)
+>
+> Выпустил самоподписанные сертификаты командой: `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-test.key -out /etc/ssl/certs/nginx-test.crt`
+> 
+> Перевел их в base64 командами: `sudo cat /etc/ssl/private/nginx-test.key|base64` и `sudo cat /etc/ssl/certs/nginx-test.crt|base64`
+> 
+> создал [secrets](config/2-3-2-nginx-secrets.yaml)
+> 
+> Выпускал сертификат на домен tia.edu - прописал его в /etc/hosts
+> 
 
 5. Предоставить манифесты, а также скриншоты и/или вывод необходимых команд.
 
-------
+> В итоге получилось: 
+> 
+> ![finish](src/2-3-2-4-finish.png)
+> 
+> ![cert](src/2-3-2-4-ctr.png)
 
-### Правила приема работы
 
-1. Домашняя работа оформляется в своем Git репозитории в файле README.md. Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
-2. Файл README.md должен содержать скриншоты вывода необходимых команд `kubectl`, а также скриншоты результатов
-3. Репозиторий должен содержать тексты манифестов или ссылки на них в файле README.md
-
-------
