@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "multitool-d.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "multitool-d.fullname" . }}:{{ .Values.image.env.HTTP_PORT }} ']
   restartPolicy: Never

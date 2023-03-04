@@ -35,9 +35,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: HTTP_PORT
-              value: "18080"
+              value: "{{ .Values.service.port }}"
             - name: HTTPS_PORT
-              value: "11443"
+              value: "{{ .Values.image.env.HTTPS_PORT }}"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -46,10 +46,14 @@ spec:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 3
+            periodSeconds: 3
           readinessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 3
+            periodSeconds: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
