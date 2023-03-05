@@ -1,0 +1,27 @@
+
+
+apiVersion: apps/v1
+kind: Deployment
+{{- with .Values.apps.nginx }}
+metadata:
+  name: {{ .app }}
+  labels:
+    {{ .app }}
+spec:
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+      {{ .app | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{ .app | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .app }}
+          image: "{{ .image.repository }}:{{ .image.tag }}"
+          imagePullPolicy: {{ .image.pullPolicy }}
+          ports:
+            - containerPort: {{ .containerPort }}
+
+{{ end }}

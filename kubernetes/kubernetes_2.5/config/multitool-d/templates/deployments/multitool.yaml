@@ -1,0 +1,29 @@
+
+
+apiVersion: apps/v1
+kind: Deployment
+{{- with .Values.apps.multitool }}
+metadata:
+  name: {{ .app }}
+  labels:
+    {{ .app }}
+spec:
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+      {{ .app | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{ .app | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .app }}
+          image: "{{ .image.repository }}:{{ .image.tag }}"
+          imagePullPolicy: {{ .image.pullPolicy }}
+          env:
+            - name: HTTP_PORT
+              value: "{{ .image.env.HTTP_PORT }}"
+            - name: HTTPS_PORT
+              value: "{{ .image.env.HTTPS_PORT }}"
+{{ end }}

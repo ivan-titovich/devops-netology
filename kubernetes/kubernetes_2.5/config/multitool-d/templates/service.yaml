@@ -7,9 +7,13 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.port }}
+    - port: {{ .Values.service.port2  }}
+      targetPort: {{ .Values.apps.multitool.image.env.HTTP_PORT }}
       protocol: TCP
-      name: http
+      name: {{ .Values.apps.multitool.app }}
+    - port: {{ .Values.service.port1  }}
+      targetPort: {{ .Values.apps.nginx.containerPort   }}
+      protocol: TCP
+      name: nginx
   selector:
     {{- include "multitool-d.selectorLabels" . | nindent 4 }}
