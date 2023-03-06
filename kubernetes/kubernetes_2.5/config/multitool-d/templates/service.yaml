@@ -1,9 +1,10 @@
+{{- $release := .Release.Name }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "multitool-d.fullname" . }}
+  name: {{ .Values.service.name }}
   labels:
-    {{- include "multitool-d.labels" . | nindent 4 }}
+    app: {{ $release }}-{{ .Values.service.name }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,8 +13,9 @@ spec:
       protocol: TCP
       name: {{ .Values.apps.multitool.app }}
     - port: {{ .Values.service.port1  }}
-      targetPort: {{ .Values.apps.nginx.containerPort   }}
+      targetPort: {{ .Values.apps.nginx.containerPort }}
       protocol: TCP
       name: nginx
   selector:
-    {{- include "multitool-d.selectorLabels" . | nindent 4 }}
+    app: {{ .Values.service.name }}
+
