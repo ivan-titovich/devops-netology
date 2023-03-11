@@ -1,12 +1,13 @@
 {{- $replicas := .Values.apps.replicaCount }}
 {{- $release := .Release.Name }}
+{{- $tag := .Chart.AppVersion | toString }}
 apiVersion: apps/v1
 kind: Deployment
 {{- with .Values.apps.multitool }}
 metadata:
   name: {{ $release }}-{{ .app }}
   labels:
-    {{ .app }}
+    app: {{ .app }}
 spec:
   replicas: {{ $replicas }}
   selector:
@@ -19,11 +20,12 @@ spec:
     spec:
       containers:
         - name: {{ .app }}
-          image: {{ .image.repository }}:{{ .image.tag }}
+          image: "{{ .image.repository }}:{{ $tag | default .image.tag }}"
+
           imagePullPolicy: {{ .image.pullPolicy }}
           env:
             - name: HTTP_PORT
-              value: {{ .image.env.HTTP_PORT }}
+              value: {{ .image.env.HTTP_PORT | quote }}
             - name: HTTPS_PORT
-              value: {{ .image.env.HTTPS_PORT }}
+              value: {{ .image.env.HTTPS_PORT | quote  }}
 {{- end }}

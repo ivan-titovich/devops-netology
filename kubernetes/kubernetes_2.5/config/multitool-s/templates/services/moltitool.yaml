@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.apps.multitool.app }}-{{ .Values.service.name }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.service.name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.apps.multitool.image.env.HTTP_PORT }}
+      protocol: TCP
+      name: {{ .Values.apps.multitool.app }}
+  selector:
+    app: {{ .Values.apps.multitool.app }}
+

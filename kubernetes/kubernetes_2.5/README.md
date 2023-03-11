@@ -25,17 +25,22 @@
 ### Задание 1. Подготовить helm чарт для приложения
 
 1. Необходимо упаковать приложение в чарт для деплоя в разные окружения. 
-> Упаковал mutlitool. Вместе с сервисом. 
+> Упаковал mutlitool с nginx. Оба приложения деплоятся  из разных deployments и на каждое из них создается свой сервис.
+> 
 >
-> [Multitool Chart. ](config/multitool-d)
+> [Multitool and nginx Chart. ](config/multitool-d)
 > 
->  ![cli](src/2-5-1-cli.png)
 > 
->  ![screenshot](src/2-5-1-screen.png)
-> 
+> ![Screenshot](src/2-5-1-template_done.png)
 2. Каждый компонент приложения деплоится отдельным deployment’ом/statefulset’ом/
-
+> [templates-deployments:](config/multitool-d/templates/deployments)
+>
+> 
 3. В переменных чарта измените образ приложения для изменения версии.
+> Создал отдельный [Chart](config/multitool-s) nолько с multitool, т.к. тэги 2х приложений скорее всего не совпадут(кроме latest, вероятно).
+> 
+> При измении в Chart,yaml параметра appVersion на тэг версии image-a устанавливаться будет он, в противном случае - "latest" из конфигурации (values.yaml)
+> 
 
 
 
@@ -44,12 +49,42 @@
 ### Задание 2. Запустить 2 версии в разных неймспейсах
 
 1. Подготовив чарт, необходимо его проверить. Запуститe несколько копий приложения.
+> [Chart](config/multitool-nosvc) 
+
 2. Одну версию в namespace=app1, вторую версию в том же неймспейсе;третью версию в namespace=app2.
+> namespace app1, app version 1
+```shell
+$ helm install -n  app1  appv1 .
+NAME: appv1
+LAST DEPLOYED: Sat Mar 11 16:52:42 2023
+NAMESPACE: app1
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+
+```
+> namespace app1, app version 2
+```shell
+$ helm install -n  app1  appv2 .
+NAME: appv2
+LAST DEPLOYED: Sat Mar 11 16:52:45 2023
+NAMESPACE: app1
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+
+
+``` 
+> namespace app2, app version 3
+```shell
+**$ helm install -n  app2  appv3 .
+NAME: appv3
+LAST DEPLOYED: Sat Mar 11 16:53:25 2023
+NAMESPACE: app2
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None**
+
+```
 3. Продемонстрируйте результат/
-
-### Правила приема работы
-
-1. Домашняя работа оформляется в своем Git репозитории в файле README.md. Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
-2. Файл README.md должен содержать скриншоты вывода необходимых команд `kubectl`, `helm`, а также скриншоты результатов
-3. Репозиторий должен содержать тексты манифестов или ссылки на них в файле README.md
-[.](https://github.com/Spinxaler/devops_netology/tree/master/13.4/13.4)
+> ![namespaces](src/2-5-2-namespaces.png)

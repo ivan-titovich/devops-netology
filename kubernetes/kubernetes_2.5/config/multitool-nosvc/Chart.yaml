@@ -1,9 +1,9 @@
 apiVersion: v2
-name: multitool-d
+name: multitool-s
 description: HW
 
 type: application
 
 version: 0.0.1
 
-appVersion: "1.0.0"
+appVersion: "f0541c8"

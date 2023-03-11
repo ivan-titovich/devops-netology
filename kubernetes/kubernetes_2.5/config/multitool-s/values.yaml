@@ -9,13 +9,6 @@ apps:
       env:
         HTTP_PORT:  1180
         HTTPS_PORT: 11443
-  nginx:
-    app: nginx
-    image:
-      repository: nginx
-      pullPolicy: IfNotPresent
-      tag: latest
-    containerPort: 80
 
 service:
   name: svc-name

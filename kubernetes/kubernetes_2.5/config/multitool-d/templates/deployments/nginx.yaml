@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 {{- with .Values.apps.nginx }}
 metadata:
-  name: {{ .app }}
+  name: {{ $release }}-{{ .app }}
   labels:
     app: {{ .app }}
 spec:

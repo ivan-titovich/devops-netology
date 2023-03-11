@@ -1,0 +1,11 @@
+apps:
+  replicaCount: 1
+  multitool:
+    app: multitool
+    image:
+      repository: wbitt/network-multitool
+      pullPolicy: IfNotPresent
+      tag: latest
+      env:
+        HTTP_PORT:  1180
+        HTTPS_PORT: 11443
