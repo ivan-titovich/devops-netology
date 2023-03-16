@@ -13,6 +13,9 @@ directories = {
     '4': ['321']
 }
 
+
+
+
 def get_people_by_doc(documents, number):
     for document in documents:
         result = "ОШИБКА! Введенный номер документа не найден."
@@ -34,12 +37,21 @@ def doc_list(documents):
         print(f"{document['type']}, \"{document['number']}\",\"{document['name']}\"")
 
 
-def add_to_dict(documents, directories, user_type_input, user_number_input, user_name_input):
-    # print(user_type_input, user_number_input, user_name_input, user_directies_input)
-    for doc in documents:
-        doc['type'] = user_type_input
-        doc['number'] = user_number_input
-        doc['name'] = user_name_input
+def directories_list(directories):
+    for shelf in directories:
+        print(f"на полке №", shelf , ": ")
+        for list in directories[shelf] :
+            print(list)
+
+def add_to_dict(documents, directories, user_type_input, user_number_input, user_name_input, user_directory_input):
+
+    print(f"user_directory_input", user_directory_input)
+    if user_directory_input in directories:
+        directories[user_directory_input].append(user_number_input)
+        documents.append({"type": user_type_input, "number": user_number_input, "name": user_name_input})
+    else :
+        print("ОШИБКА! Нет полки с указанным номером! ")
+
 
 
 
@@ -66,9 +78,14 @@ def main(documents, directories):
             user_type_input = input('Введите тип документа (eng): ')
             user_number_input = input('Введите номер документа: ')
             user_name_input = input('Введите имя владельца документа (rus): ')
-            # user_directies_input = input('Введите номер стеллажа: ')
-            print(add_to_dict(documents, directories, user_type_input, user_number_input, user_name_input))
-
+            user_directory_input = input('Введите номер полки для документа: ')
+            print(add_to_dict(documents, directories, user_type_input, user_number_input, user_name_input, user_directory_input))
+            print()
+            print(doc_list(documents))
+            print()
+            print(directories_list(directories))
+        elif user_input == 'ld' :
+            print(directories_list(directories))
         elif user_input == 'q':
             break
 
