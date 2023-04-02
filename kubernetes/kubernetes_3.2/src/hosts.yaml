@@ -1,0 +1,43 @@
+all:
+  hosts:
+    controlplane1:
+      ansible_host: 10.130.0.11
+      ip: 10.130.0.11
+      access_ip: 10.130.0.11
+    controlplane2:
+      ansible_host: 10.130.0.12
+      ip: 10.130.0.12
+      access_ip: 10.130.0.12
+    controlplane3:
+      ansible_host: 10.130.0.13
+      ip: 10.130.0.13
+      access_ip: 10.130.0.13
+    workernode1:
+      ansible_host: 10.130.0.35
+      ip: 10.130.0.35
+      access_ip: 10.130.0.35
+    workernode2:
+      ansible_host: 10.130.0.32
+      ip: 10.130.0.32
+      access_ip: 10.130.0.32
+  children:
+    kube_control_plane:
+      hosts:
+        controlplane1:
+        controlplane2:
+        controlplane3:
+    kube_node:
+      hosts:
+        workernode1:
+        workernode2:
+    etcd:
+      hosts:
+        controlplane1:
+        controlplane2:
+        controlplane3:
+    k8s_cluster:
+      children:
+        kube_control_plane:
+        kube_node:
+    calico_rr:
+      hosts: {}

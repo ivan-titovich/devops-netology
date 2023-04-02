@@ -111,8 +111,30 @@ kubeadm join 10.0.0.27:6443 --token gx9amz.zk20q3ythz55mji3 \
 ### Задание 2*. Установить HA кластер
 
 1. Установить кластер в режиме HA
+> Для развертывания кластера в режиме HA использовал kubespray. 
+>
+> [hosts.yaml](src/hosts.yaml)
+> 
+> Согласно [инструкции kubespray](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ha-mode.md) для использования kubernetes в HA режиме нужно в файл inventory/mycluster/all/all.yaml изменить настройки на: 
+```yaml
+## Internal loadbalancers for apiservers
+loadbalancer_apiserver_localhost: true
+# valid options are "nginx" or "haproxy"
+loadbalancer_apiserver_type: nginx  # valid values "nginx" or "haproxy"
+```
+
 2. Использовать нечетное кол-во Master-node
+> Для тестирования работы k8s в HA режиме использовал 3 control-plane ноды и 2 worker-node.
+> 
+> ![get nodes](img/3-2-2-get-nodes.png)
+> 
+> Локально:
+> 
+> ![get nodes local](img/3-2-2-get-nodes-local.png)
+
 3. Для cluster ip использовать keepalived или другой способ
+> Разворачивал с помощью kubespray, описал выше.
+
 
 ### Правила приема работы
 
