@@ -10,3 +10,5 @@ function delete_vm {
 delete_vm "master1"
 delete_vm "worker1"
 delete_vm "worker2"
+
+
