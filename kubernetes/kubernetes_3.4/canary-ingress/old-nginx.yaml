@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: old-nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: old-nginx
+  template:
+    metadata:
+      labels:
+        run: old-nginx
+    spec:
+      volumes:
+        - name: index
+          configMap:
+            name: old-nginx-configmap
+      containers:
+      - image: nginx:stable
+        imagePullPolicy: Always
+        name: old-nginx
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
+          - name: index
+            mountPath: /usr/share/nginx/html/index.html
+            subPath: index.html
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: old-nginx
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: old-nginx
+  sessionAffinity: None
+  type: NodePort
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: old-nginx-configmap
+data:
+  index.html:  |
+    old nginx
+#    <!DOCTYPE html>
+#    <html>
+#    <head>
+#    <title>Welcome to nginx!</title>
+#    <style>
+#    html { color-scheme: light dark; }
+#    body { width: 35em; margin: 0 auto;
+#    font-family: Tahoma, Verdana, Arial, sans-serif; }
+#    </style>
+#    </head>
+#    <body>
+#    <h1>This is old nginx!</h1>
+#    <p>Where is the canary?? </p>
+#    </body>
+#    </html>
