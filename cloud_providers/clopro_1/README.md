@@ -12,7 +12,8 @@
 
 **Что нужно сделать**
 
-1. Создать пустую VPC. Выбрать зону.
+1. Создать пустую VPC. Выбрать зону. 
+>network-1
 2. Публичная подсеть.
 
  - Создать в VPC subnet с названием public, сетью 192.168.10.0/24.
@@ -27,6 +28,11 @@ Resource Terraform для Yandex Cloud:
 
 - [VPC subnet](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/vpc_subnet).
 - [Route table](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/vpc_route_table).
+
+- [Route table mirror](https://registry.tfpla.net/providers/yandex-cloud/yandex/latest/docs)
+
+- [Route table yandex cloud](https://cloud.yandex.com/en/docs/vpc/operations/static-route-create)
+
 - [Compute Instance](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/compute_instance).
 
 ---
