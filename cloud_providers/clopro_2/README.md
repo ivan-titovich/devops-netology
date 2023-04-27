@@ -57,75 +57,35 @@ resource "yandex_storage_object" "chatgpt-robot" {
  - Для создания стартовой веб-страницы рекомендуется использовать раздел `user_data` в [meta_data](https://cloud.yandex.ru/docs/compute/concepts/vm-metadata).
  - Разместить в стартовой веб-странице шаблонной ВМ ссылку на картинку из бакета.
  - Настроить проверку состояния ВМ.
-```terraform
-resource "yandex_compute_instance_group" "group1" {
-  name                = "test-ig"
-  folder_id           = var.yc_folder_id
-  service_account_id  = "${yandex_iam_service_account.sa.id}"
-  deletion_protection = true
-  instance_template {
-    platform_id = "standard-v1"
-    resources {
-      memory = 2
-      cores  = 2
-    }
-    boot_disk {
-      mode = "READ_WRITE"
-      initialize_params {
-        image_id = "fd827b91d99psvq5fjit"
-        size     = 4
-      }
-    }
-    network_interface {
-      network_id = "${yandex_vpc_network.network-1.id}"
-      subnet_ids = ["${yandex_vpc_subnet.subnet-1.id}"]
-      nat        = true
-    }
-    labels = {
-      label1 = "label1-value"
-      label2 = "label2-value"
-    }
-    metadata = {
-      foo      = "bar"
-      ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
-      user-data = "${file("../src/index.yaml")}"
-    }
-    network_settings {
-      type = "STANDARD"
-    }
-  }
-
-  variables = {
-    test_key1 = "test_value1"
-    test_key2 = "test_value2"
-  }
-
-  scale_policy {
-    fixed_scale {
-      size = 3
-    }
-  }
-
-  allocation_policy {
-    zones = ["ru-central1-a"]
-  }
-
-  deploy_policy {
-    max_unavailable = 2
-    max_creating    = 2
-    max_expansion   = 2
-    max_deleting    = 2
-  }
-}
-```
+> [instance-group](yc-tf-bucket/instance-group.tf)
+>
 >![screenshot-2](src/1-2-robot.png)
 
- - Настроить проверку состояния ВМ.
 
 3. Подключить группу к сетевому балансировщику:
 
  - Создать сетевой балансировщик.
+> [network load balancer](yc-tf-bucket/nlb.tf)
+
  - Проверить работоспособность, удалив одну или несколько ВМ.
+> До удаления: 
+> 
+> ![before delete](src/1-3-before.png)
+> 
+> Поднимается новый инстанс после удаления: 
+> 
+> ![deleted](src/1-3-restoring.png)
+> 
+> Автоматически поднялось: 
+> 
+> ![after delete](src/1-3-after.png)
+> 
+> 
+> На созданном инстансе все работает: 
+> 
+> ![it works](src/1-3-works.png)
+> 
+> 
 4. (дополнительно)* Создать Application Load Balancer с использованием Instance group и проверкой состояния.
 
 Полезные документы:

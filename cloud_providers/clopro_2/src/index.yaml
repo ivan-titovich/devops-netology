@@ -1,3 +1,3 @@
 #cloud-config
 runcmd:
-  - [ sh, -c, "echo '<img src='https://storage.yandexcloud.net/ivan-2504/chatgpt-robot'>' > /var/www/html/index.html" ]
+  - [ sh, -c, "echo '<html><head><title>Image from bucket on YC</title></head><body><h1>If you see this page, it means that your server is working.</h1><img src=\"https://storage.yandexcloud.net/ivan-2504/chatgpt-robot\">robot</img></body>' > /var/www/html/index.html" ]

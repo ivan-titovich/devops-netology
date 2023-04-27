@@ -1,8 +1,8 @@
 resource "yandex_compute_instance_group" "group1" {
-  name                = "test-ig"
+  name                = "instance-group-1"
   folder_id           = var.yc_folder_id
   service_account_id  = "${yandex_iam_service_account.sa.id}"
-  deletion_protection = true
+#  deletion_protection = true
   instance_template {
     platform_id = "standard-v1"
     resources {
@@ -35,10 +35,10 @@ resource "yandex_compute_instance_group" "group1" {
     }
   }
 
-  variables = {
-    test_key1 = "test_value1"
-    test_key2 = "test_value2"
-  }
+#  variables = {
+#    test_key1 = "test_value1"
+#    test_key2 = "test_value2"
+#  }
 
   scale_policy {
     fixed_scale {
@@ -51,11 +51,16 @@ resource "yandex_compute_instance_group" "group1" {
   }
 
   deploy_policy {
-    max_unavailable = 2
-    max_creating    = 2
-    max_expansion   = 2
+    max_unavailable = 1
+#    max_creating    = 3
+    max_expansion   = 0
     max_deleting    = 2
   }
+
+  load_balancer {
+    target_group_name = "nlb-tg"
+  }
+
   health_check {
     interval = 30
     timeout = 10

@@ -2,7 +2,7 @@
 // Создание ServiceAccount
 resource "yandex_iam_service_account" "sa" {
   folder_id = var.yc_folder_id
-  name      = "tf-test-sa"
+  name      = "tf-sa"
 }
 
 // Наделение прав аккаунту
