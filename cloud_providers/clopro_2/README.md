@@ -88,6 +88,14 @@ resource "yandex_storage_object" "chatgpt-robot" {
 > 
 4. (дополнительно)* Создать Application Load Balancer с использованием Instance group и проверкой состояния.
 
+
+> [Application load balancer with instance-group](yc-tf-alb)
+> 
+> Проверил, все работает (во втором окне указан IP ALB): 
+> 
+> ![alb](src/1-4-alb.png)
+> 
+> 
 Полезные документы:
 
 - [Compute instance group](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/compute_instance_group).
