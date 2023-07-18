@@ -1,0 +1,5 @@
+---
+kuber:
+  hosts:
+    master_01:
+      ansible_host: 158.160.116.75

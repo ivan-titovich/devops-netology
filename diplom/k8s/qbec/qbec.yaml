@@ -1,0 +1,16 @@
+apiVersion: qbec.io/v1alpha1
+kind: App
+metadata:
+  name: d-webserver
+spec:
+  environments:
+    default:
+      defaultNamespace: default
+      server: https://158.160.116.75:6443
+    stage:
+      defaultNamespace: stage
+      server: https://158.160.116.75:6443
+    prod:
+      defaultNamespace: prod
+      server: https://158.160.116.75:6443
+  vars: {}

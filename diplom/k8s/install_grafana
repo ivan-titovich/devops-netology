@@ -1,0 +1,13 @@
+#!/bin/sh
+
+git clone https://github.com/prometheus-operator/kube-prometheus.git && \
+cp manifest/grafana-networkPolicy.yaml kube-prometheus/manifests/grafana-networkPolicy.yaml && \
+cp manifest/grafana-service.yaml kube-prometheus/manifests/grafana-service.yaml && \
+cd kube-prometheus
+#need change manifest
+kubectl apply --server-side -f manifests/setup
+kubectl wait \
+	--for condition=Established \
+	--all CustomResourceDefinition \
+	--namespace=monitoring
+kubectl apply -f manifests/

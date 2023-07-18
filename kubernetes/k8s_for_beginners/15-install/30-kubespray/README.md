@@ -36,8 +36,8 @@ cp -rfp inventory/sample inventory/mycluster
 Подготовьте список IP адресов и скопируйте их через пробел в первую команду.  
 ```shell script
 # Обновление Ansible inventory с помощью билдера 
-declare -a IPS=(10.10.1.3 10.10.1.4 10.10.1.5)
-CONFIG_FILE=inventory/mycluster/hosts.yaml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
+declare -a IPS=(158.160.46.251 51.250.7.215 158.160.98.68)
+CONFIG_FILE=inventory/dcluster/hosts.yaml python3 kubespray/contrib/inventory_builder/inventory.py ${IPS[@]}
 
 # 10.10.1.3 10.10.1.4 10.10.1.5 - адреса ваших серверов
 ```

@@ -4,7 +4,8 @@
 ### Terraform ###
 # Local .terraform directories
 **/.terraform/*
-
+**/.terraform.lock.hcl/*
+**/terraform.tfstate.d/*
 # .tfstate termplates
 *.tfstate
 *.tfstate.*
@@ -51,6 +52,12 @@ override.tf.json
 # End of https://www.toptal.com/developers/gitignore/api/terraform,terragrunt,visualstudiocode
 
 
-
+**/terraform/vars.tf
 **/terraform/vars.tf.bkp
 /terraform/key.json
+/k8s/kube-promethueus/*
+/k8s/kube-promethueus*
+/atlantis/token
+/atlantis/webhook-secret
+/d-site*
+key.json
