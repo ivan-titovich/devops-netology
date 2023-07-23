@@ -169,7 +169,7 @@ make destroy
 > 
 > и устанавливает, согласно инструкции, Prometheus, Alertmanager и Grafana в кластер (namespace monitoring)
 > 
-> [Ссылка на Grafana](http://158.160.116.75:30111/login)
+> [Ссылка на Grafana](http://158.160.108.186:30111/login)
 > 
 > Логин: `admin`
 > 
@@ -197,7 +197,7 @@ qbec apply prod
 ![qbec](img/qbec.png)
 
 После этого приложение из докер-образа задеплоилось в кластер и доступно по адресу:
-http://158.160.116.75:30666
+http://158.160.108.186:30666
 
 > Приложение до деплоя с помощью gitlab CI: 
 > 
@@ -261,9 +261,12 @@ http://158.160.116.75:30666
 4. https://github.com/ivan-titovich/dip-rep/tree/main/d-site 
    https://hub.docker.com/r/titovichia/d-webserver/tags
 5. https://github.com/ivan-titovich/devops-netology/tree/main/diplom/k8s
-6. Приложение: http://158.160.116.75:30666
-    Графана: http://158.160.116.75:30111
+6. Приложение: http://158.160.108.186:30666
+    Графана: http://158.160.108.186:30111
     Логин: admin
     Пароль: 1Q2w3e4r
+
+---
+# ВНИМАНИЕ! В связи с тем, что закончились деньги на счету yandex.cloud в процессе ожидания проверки - работа стэнда приостанавливалась, из-за этого IP-адреса на скриншотах не соответствуют IP адресам стенда, но это стенд тот же.
 
 
